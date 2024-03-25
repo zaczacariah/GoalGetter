@@ -1,0 +1,53 @@
+[
+    {
+      "quantity": 100,
+      "notes": "Saved an additional $100 towards the new car fund.",
+      "actionable_goal_id": 1
+    },
+    {
+      "quantity": 2,
+      "notes": "Lost 2 Kg this week with healthy eating and more exercise.",
+      "actionable_goal_id": 2
+    },
+    {
+      "quantity": 12000,
+      "notes": "Reached 12,000 steps today.",
+      "actionable_goal_id": 3
+    },
+    {
+      "quantity": 75,
+      "notes": "Managed to save $75 from this month's budget for emergency fund.",
+      "actionable_goal_id": 1
+    },
+    {
+      "quantity": 3,
+      "notes": "3 Kg down, feeling motivated!",
+      "actionable_goal_id": 2
+    },
+    {
+      "quantity": 15000,
+      "notes": "A new personal record, walked 15,000 steps!",
+      "actionable_goal_id": 3
+    },
+    {
+      "quantity": 50,
+      "notes": "Added $50 to the holiday gifts savings.",
+      "actionable_goal_id": 1
+    },
+    {
+      "quantity": 1,
+      "notes": "1 Kg weight loss this week. Consistency is key!",
+      "actionable_goal_id": 2
+    },
+    {
+      "quantity": 13000,
+      "notes": "Kept the streak, 13,000 steps for the day.",
+      "actionable_goal_id": 3
+    },
+    {
+      "quantity": 200,
+      "notes": "Big save this month, $200 added to the vacation fund.",
+      "actionable_goal_id": 1
+    }
+  ]
+  

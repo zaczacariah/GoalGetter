@@ -20,7 +20,7 @@ HabitualGoalEntry.init(
             allowNull: false,
             defaultValue: DataTypes.NOW
         },
-        habitualGoal_id: {
+        habitual_goal_id: {
             type: DataTypes.INTEGER,
             references: {
                 model: 'habitualGoal',

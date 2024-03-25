@@ -1,0 +1,21 @@
+[
+    {
+      "name": "Read 20 Books This Year",
+      "description": "Complete reading 20 different books to broaden knowledge and perspectives.",
+      "goal_amount": 20,
+      "due_date": "2025-12-31"
+    },
+    {
+      "name": "Exercise for 180 Days",
+      "description": "Maintain a healthy lifestyle by exercising for at least 180 days within the year.",
+      "goal_amount": 180,
+      "due_date": "2025-12-31"
+    },
+    {
+      "name": "Meditate for 90 Days",
+      "description": "Develop mindfulness and reduce stress by meditating for 90 days.",
+      "goal_amount": 90,
+      "due_date": "2025-12-31"
+    }
+  ]
+  

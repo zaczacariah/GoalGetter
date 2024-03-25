@@ -16,9 +16,15 @@ ActionableGoal.init(
             allowNull: false
         },
         unit: {
-            type: sequelize.ENUM,
+            type: DataTypes.ENUM,
             values: ['$', 'Kg', 'Steps', 'Km'],
             defaultValue: '$'
+        },
+        direction: {
+            type: DataTypes.ENUM,
+            values: ['ASC', 'DESC'],
+            allowNull: false,
+            defaultValue: "ASC"
         },
         description: {
             type: DataTypes.STRING,
