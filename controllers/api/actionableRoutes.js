@@ -100,10 +100,10 @@ router.put('/:id', async (req, res) => {
 
     return res.status(202).json(updatedGoal);
 
+});
 
 
 
-=======
 //Dinh Post: req.body should be like below
 // {
 //     "name": "Save Money for Vacation",
