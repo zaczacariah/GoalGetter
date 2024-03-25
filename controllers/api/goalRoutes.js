@@ -33,7 +33,11 @@ router.get('/', async (req, res) => {
             ]
         });
 
-
+        if(!actionableGoals && !habitualGoals){
+            const message = !actionableGoals ? "No Actionable Goals Found" : "No Habitual Goals Found";
+            res.status(404).json({ message });
+            return;
+        }
         const allGoals = { actionableGoals, habitualGoals};
 
         res.status(200).json(allGoals);
