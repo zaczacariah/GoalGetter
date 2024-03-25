@@ -24,7 +24,7 @@ ActionableGoalEntry.init(
             allowNull: false,
             defaultValue: DataTypes.NOW
         },
-        actionableGoal_id: {
+        actionable_goal_id: {
             type: DataTypes.INTEGER,
             references: {
                 model: 'actionableGoal',

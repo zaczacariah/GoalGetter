@@ -1,0 +1,33 @@
+[
+    {
+      "notes": "Read 'The Alchemist' by Paulo Coelho.",
+      "date_created": "2024-03-21",
+      "habitual_goal_id": 1 
+    },
+    {
+      "notes": "Completed a 30-minute HIIT workout.",
+      "date_created": "2024-03-22",
+      "habitual_goal_id": 2 
+    },
+    {
+      "notes": "20-minute guided meditation session.",
+      "date_created": "2024-03-23",
+      "habitual_goal_id": 3 
+    },
+    {
+      "notes": "Read 'Sapiens: A Brief History of Humankind' by Yuval Noah Harari.",
+      "date_created": "2024-03-24",
+      "habitual_goal_id": 1
+    },
+    {
+      "notes": "Went for a 5km run in the park.",
+      "date_created": "2024-03-25",
+      "habitual_goal_id": 2
+    },
+    {
+      "notes": "Meditated early in the morning, focusing on breathwork.",
+      "date_created": "2024-03-26",
+      "habitual_goal_id": 3
+    }
+  ]
+  

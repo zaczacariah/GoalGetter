@@ -9,7 +9,8 @@ const ActionableGoalEntry = require('./ActionableGoalEntry');
 
 
 User.hasMany(HabitualGoal, {
-    foreignKey: 'user_id'
+    foreignKey: 'user_id',
+    onDelete: 'CASCADE'
 });
 
 HabitualGoal.belongsTo(User, {
@@ -17,15 +18,17 @@ HabitualGoal.belongsTo(User, {
 });
 
 HabitualGoal.hasMany(HabitualGoalEntry, {
-    foreignKey: 'habitualGoal_id'
+    foreignKey: 'habitual_goal_id',
+    onDelete: "CASCADE"
 });
 
 HabitualGoalEntry.belongsTo(HabitualGoal, {
-    foreignKey: 'habitualGoal_id'
+    foreignKey: 'habitual_goal_id'
 });
 
 User.hasMany(ActionableGoal, {
-    foreignKey: 'user_id'
+    foreignKey: 'user_id',
+    onDelete: 'CASCADE'
 });
 
 ActionableGoal.belongsTo(User, {
@@ -33,11 +36,12 @@ ActionableGoal.belongsTo(User, {
 });
 
 ActionableGoal.hasMany(ActionableGoalEntry, {
-    foreignKey: 'habitualGoal_id'
+    foreignKey: 'actionable_goal_id',
+    onDelete: 'CASCADE'
 });
 
 ActionableGoalEntry.belongsTo(ActionableGoal, {
-    foreignKey: 'habitualGoal_id'
+    foreignKey: 'actionable_goal_id'
 });
 
 module.exports = { User, HabitualGoal, HabitualGoalEntry, ActionableGoal, ActionableGoalEntry };
