@@ -109,15 +109,17 @@ router.put('/:id', async (req, res) => {
     //     "due_date": "2025-12-31"
     // }
 router.post('/', async (req, res) => {
+    // check if there is valid req
+    const {name, description, goal_amount, due_date} = req.body;
+    if (!name && !description && !goal_amount && !due_date) {
+        res.status(400).json({message: "No data to create goal!"});
+        return;
+    };
+
     try {
-        // check if req.body is not empty
-        if (req.body) {
-            const newHabitualGoal = await HabitualGoal.create(req.body);
-            res.status(200).json(newHabitualGoal);            
-        } else {
-            res.status(400).json({ message: 'There is no request body!' });
-        };
-        
+        const newHabitualGoal = await HabitualGoal.create(req.body);
+        res.status(200).json(newHabitualGoal);            
+    
     } catch (error) {
         res.status(500).json(error);
     };
@@ -126,6 +128,7 @@ router.post('/', async (req, res) => {
 
 //Dinh Delete
 router.delete('/:id', async (req, res) => {
+
     // Check if id is an INTEGER
     if(isNaN(parseInt(req.params.id))){
         res.status(400).json({ message: "ID not an INTEGER"});
@@ -146,7 +149,7 @@ router.delete('/:id', async (req, res) => {
             return;
         };
         res.status(200).json(deletedHabitualGoal);            
-        
+
     } catch (error) {
         res.status(500).json(error);
     };
