@@ -112,18 +112,18 @@ router.put('/:id', async (req, res) => {
 //     "description": "Save enough money to go on a vacation to Hawaii.",
 //     "goal_amount": 2000,
 //     "due_date": "2024-06-01",
-//     "date_created": "2023-01-01"
 // }
 router.post('/', async (req, res) => {
+    // check if there is valid req
+    const { name, unit, direction, description, goal_amount, due_date } = req.body;
+    if (!name && !unit && !direction && !description && !goal_amount && !due_date) {
+        res.status(400).json({ message: "No data to create goal"});
+        return;
+    };
+
     try {
-        // check if req.body is not empty
-        if (req.body) {
-            const newActionableGoal = await ActionableGoal.create(req.body);
-            res.status(200).json(newActionableGoal);            
-        } else {
-            res.status(400).json({ message: 'request error!' });
-        };
-        
+        const newActionableGoal = await ActionableGoal.create(req.body);
+        res.status(200).json(newActionableGoal);
     } catch (error) {
         res.status(500).json(error);
     };
@@ -132,24 +132,26 @@ router.post('/', async (req, res) => {
 
 //Dinh Delete
 router.delete('/:id', async (req, res) => {
-    try {
-        // check if there is an id
-        if (req.params.id) {
-            const deletedActionableGoal = await ActionableGoal.destroy({
-                where: {
-                    id: req.params.id
-                }
-            });
+    // check if id is a number
+    if(isNaN(parseInt(req.params.id))){
+        return res.status(400).json({ message: "id not an Int"});
+    };
 
-            // check if the goal is not found to delete
-            if (!deletedActionableGoal) {
-                res.status(404).json({ message: 'No goal found with this id!' });
-                return;
-            };
-            res.status(200).json(deletedActionableGoal);            
-        } else {
+    try {
+        
+        const deletedActionableGoal = await ActionableGoal.destroy({
+            where: {
+                id: req.params.id
+            }
+        });
+
+        // check if the goal is not found to delete
+        if (!deletedActionableGoal) {
             res.status(404).json({ message: 'No goal found with this id!' });
+            return;
         };
+        res.status(200).json(deletedActionableGoal);            
+    
     } catch (error) {
         res.status(500).json(error);
     };
