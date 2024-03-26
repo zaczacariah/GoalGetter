@@ -105,23 +105,20 @@ router.put('/:id', async (req, res) => {
 
 
 //Dinh Post: req.body should be like below
-// {
-//     "name": "Save Money for Vacation",
-//     "unit": "$",
-//     "direction": "ASC",
-//     "description": "Save enough money to go on a vacation to Hawaii.",
-//     "goal_amount": 2000,
-//     "due_date": "2024-06-01",
-//     "date_created": "2023-01-01"
-// }
+    // {
+    //     "name": "Read 20 Books This Year",
+    //     "description": "Complete reading 20 different books to broaden knowledge and perspectives.",
+    //     "goal_amount": 20,
+    //     "due_date": "2025-12-31"
+    // }
 router.post('/', async (req, res) => {
     try {
         // check if req.body is not empty
         if (req.body) {
-            const newActionableGoal = await ActionableGoal.create(req.body);
-            res.status(200).json(newActionableGoal);            
+            const newHabitualGoal = await HabitualGoal.create(req.body);
+            res.status(200).json(newHabitualGoal);            
         } else {
-            res.status(400).json({ message: 'request error!' });
+            res.status(400).json({ message: 'There is no request body!' });
         };
         
     } catch (error) {
@@ -135,18 +132,18 @@ router.delete('/:id', async (req, res) => {
     try {
         // check if there is an id
         if (req.params.id) {
-            const deletedActionableGoal = await ActionableGoal.destroy({
+            const deletedHabitualGoal = await HabitualGoal.destroy({
                 where: {
                     id: req.params.id
                 }
             });
 
             // check if the goal is not found to delete
-            if (!deletedActionableGoal) {
+            if (!deletedHabitualGoal) {
                 res.status(404).json({ message: 'No goal found with this id!' });
                 return;
             };
-            res.status(200).json(deletedActionableGoal);            
+            res.status(200).json(deletedHabitualGoal);            
         } else {
             res.status(404).json({ message: 'No goal found with this id!' });
         };
