@@ -126,24 +126,27 @@ router.post('/', async (req, res) => {
 
 //Dinh Delete
 router.delete('/:id', async (req, res) => {
-    try {
-        // check if there is an id
-        if (req.params.id) {
-            const deletedHabitualGoal = await HabitualGoal.destroy({
-                where: {
-                    id: req.params.id
-                }
-            });
+    // Check if id is an INTEGER
+    if(isNaN(parseInt(req.params.id))){
+        res.status(400).json({ message: "ID not an INTEGER"});
+        return;
+    };
 
-            // check if the goal is not found to delete
-            if (!deletedHabitualGoal) {
-                res.status(404).json({ message: 'No goal found with this id!' });
-                return;
-            };
-            res.status(200).json(deletedHabitualGoal);            
-        } else {
+    try {
+        
+        const deletedHabitualGoal = await HabitualGoal.destroy({
+            where: {
+                id: req.params.id
+            }
+        });
+
+        // check if the goal is not found to delete
+        if (!deletedHabitualGoal) {
             res.status(404).json({ message: 'No goal found with this id!' });
+            return;
         };
+        res.status(200).json(deletedHabitualGoal);            
+        
     } catch (error) {
         res.status(500).json(error);
     };
