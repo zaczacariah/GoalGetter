@@ -128,12 +128,15 @@ router.post('/', async (req, res) => {
 
 //Dinh Delete
 router.delete('/:id', async (req, res) => {
-    // check if id is a number
+
+    // Check if id is an INTEGER
     if(isNaN(parseInt(req.params.id))){
-        return res.status(400).json({ message: "id not an Int"});
+        res.status(400).json({ message: "ID not an INTEGER"});
+        return;
     };
 
     try {
+        
         const deletedHabitualGoal = await HabitualGoal.destroy({
             where: {
                 id: req.params.id
