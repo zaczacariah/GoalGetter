@@ -8,27 +8,25 @@ const { HabitualGoal, HabitualGoalEntry } = require('../../models');
 router.get('/', async (req, res) => {
     try {
         
-        const actionableGoals = await ActionableGoal.findAll({
+        const habitualGoals = await HabitualGoal.findAll({
             include: [
                 {
-                    model: ActionableGoalEntry,
+                    model: HabitualGoalEntry,
                     attributes: [
                         "id",
-                        "quantity",
                         "notes",
-                        "date_created"
-            
+                        "date_created" 
                     ]
                 }
             ]
         });
 
-        if(!actionableGoals){
+        if(!habitualGoals){
             res.status(404).json({ message: "No Actionable Goals Found"})
             return;
         }
 
-        res.status(200).json(actionableGoals);
+        res.status(200).json(habitualGoals);
 
 
     } catch (error) {
@@ -39,13 +37,12 @@ router.get('/', async (req, res) => {
 router.get('/:id', async (req, res) => {
     try {
         
-        const goal = await ActionableGoal.findByPk(req.params.id, {
+        const goal = await HabitualGoal.findByPk(req.params.id, {
             include: [
                 {
-                    model: ActionableGoalEntry,
+                    model: HabitualGoalEntry,
                     attributes: [
                         "id",
-                        "quantity",
                         "notes",
                         "date_created"
             
@@ -55,7 +52,7 @@ router.get('/:id', async (req, res) => {
         });
 
         if(!goal){
-            return res.status(404).json({ message: "No Actionable Goal Found"});
+            return res.status(404).json({ message: "No Habitual Goal Found"});
            
         }
 
@@ -84,7 +81,7 @@ router.put('/:id', async (req, res) => {
         }
     }
 
-    const updatedGoal = await ActionableGoal.update({
+    const updatedGoal = await HabitualGoal.update({
         name,
         notes,
         description,
