@@ -109,15 +109,17 @@ router.put('/:id', async (req, res) => {
     //     "due_date": "2025-12-31"
     // }
 router.post('/', async (req, res) => {
+    // check if there is valid req
+    const {name, description, goal_amount, due_date} = req.body;
+    if (!name && !description && !goal_amount && !due_date) {
+        res.status(400).json({message: "No data to create goal!"});
+        return;
+    };
+
     try {
-        // check if req.body is not empty
-        if (req.body) {
-            const newHabitualGoal = await HabitualGoal.create(req.body);
-            res.status(200).json(newHabitualGoal);            
-        } else {
-            res.status(400).json({ message: 'There is no request body!' });
-        };
-        
+        const newHabitualGoal = await HabitualGoal.create(req.body);
+        res.status(200).json(newHabitualGoal);            
+    
     } catch (error) {
         res.status(500).json(error);
     };
@@ -126,24 +128,25 @@ router.post('/', async (req, res) => {
 
 //Dinh Delete
 router.delete('/:id', async (req, res) => {
-    try {
-        // check if there is an id
-        if (req.params.id) {
-            const deletedHabitualGoal = await HabitualGoal.destroy({
-                where: {
-                    id: req.params.id
-                }
-            });
+    // check if id is a number
+    if(isNaN(parseInt(req.params.id))){
+        return res.status(400).json({ message: "id not an Int"});
+    };
 
-            // check if the goal is not found to delete
-            if (!deletedHabitualGoal) {
-                res.status(404).json({ message: 'No goal found with this id!' });
-                return;
-            };
-            res.status(200).json(deletedHabitualGoal);            
-        } else {
+    try {
+        const deletedHabitualGoal = await HabitualGoal.destroy({
+            where: {
+                id: req.params.id
+            }
+        });
+
+        // check if the goal is not found to delete
+        if (!deletedHabitualGoal) {
             res.status(404).json({ message: 'No goal found with this id!' });
+            return;
         };
+        res.status(200).json(deletedHabitualGoal);            
+
     } catch (error) {
         res.status(500).json(error);
     };
