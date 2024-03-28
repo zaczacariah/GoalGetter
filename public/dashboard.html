@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="css/stylesheet.css" />
+</head>
+<body class="bg-gray-100">
+  <div class="flex flex-col md:flex-row min-h-screen">
+    <!-- Sidebar -->
+    <div class="bg-neutral-300 md:w-48 py-6 px-4">
+      <img
+        src="/public/images/goalgetter-black.png"
+        alt="Logo"
+        class="h-5 mb-2"
+      />
+      <h2 class="text-xl font-bold mb-4">Dashboard</h2>
+      <div class="mb-4">
+        <a href="#" class="block text-sm mb-2 hover:underline">View Goals</a>
+        <a href="#" class="block text-sm hover:underline">New Goal</a>
+      </div>
+      <h2 class="text-xl font-bold mb-4">Account</h2>
+      <div class="mb-4">
+        <a href="#" class="block text-sm mb-2 hover:underline">Help</a>
+        <a href="#" class="block text-sm mb-2 hover:underline">Privacy</a>
+        <a href="#" class="block text-sm hover:underline">Logout</a>
+      </div>
+    </div>
+    <!-- Content -->
+    <div class="flex-grow p-6 relative flex flex-col justify-between">
+      <div>
+        <h1 class="text-3xl font-bold mt-6 mb-4">Matt's Goal Dashboard</h1>
+        <div>
+          <p>
+            Welcome to your dashboard, Matt. Here you can view and add your
+            goals.
+          </p>
+        </div>
+        <br />
+        <h1 class="text-2xl font-bold mb-4">My Goal</h1>
+        <div>
+          <p>You currently have no goals. Add a goal to get started.</p>
+        </div>
+      </div>
+      <a
+        href="#"
+        class="bg-violet-600 text-white font-bold py-2 px-4 rounded mt-4 md:mt-6 md:absolute md:top-6 md:right-0 md:mr-4"
+        >Add Goal</a
+      >
+    </div>
+  </div>
+</body>
+</html>
