@@ -71,4 +71,13 @@ router.get('/login', async (req, res) => {
     res.render('login');
 })
 
+router.get('/signup', async (req, res) => {
+  // If the user is already logged in, redirect the request to dashboard-goals
+  if (req.session.logged_in) {
+    res.redirect('/dashboard-goals');
+    return;
+  }
+  res.render('signup');
+});
+
 module.exports = router;
