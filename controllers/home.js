@@ -1,10 +1,62 @@
 const router = require('express').Router();
 // Import the User model from the models folder
-const { Project, User } = require('../models');
+const { Project, User, ActionableGoal, HabitualGoal, ActionableGoalEntry, HabitualGoalEntry} = require('../models');
+
+router.get('/dashboard-goals', async (req, res) => {
+
+    //Actionable
+    let actionableGoals = await ActionableGoal.findAll({
+        include: [
+            {
+                model: ActionableGoalEntry,
+                attributes: [
+                    "id",
+                    "quantity",
+                    "notes",
+                    "date_created"
+
+                ]
+            }
+        ],
+        where: {
+            user_id: req.session.user_id
+        }
+    });
+
+    actionableGoals = actionableGoals.map((goal) => goal.get({plain:true}))
+
+    //Habitual
+    let habitualGoals = await HabitualGoal.findAll({
+        include: [
+            {
+                model: HabitualGoalEntry,
+                attributes: [
+                    "id",
+                    "notes",
+                    "date_created" 
+                ]
+            }
+        ],
+        where: {
+            user_id: req.session.user_id
+        }
+    });
+
+    habitualGoals = habitualGoals.map((goal)=> goal.get({plain:true}))
+
+    const goals = [...actionableGoals, ...habitualGoals];
 
 
+    
+    console.log(goals);
 
-router.get('/', async (req, res) => {
+    res.render('dashboard-goals', {
+        layout: 'alternative',
+        goals
+    });
+});
+
+router.get('/login', async (req, res) => {
     // const projectsData = await Project.findAll({
     //     include: [
     //         {
@@ -22,7 +74,7 @@ router.get('/', async (req, res) => {
     // }
     // const projects = projectsData.map((project) => project.get({plain:true}));
 
-    res.render('homepage');
+    res.render('login');
 })
 
 module.exports = router;

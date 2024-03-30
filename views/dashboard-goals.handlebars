@@ -1,0 +1,82 @@
+<!--Dashboard-->
+        <div class="flex flex-col mx-4 mb-6">
+          <h2 class="text-violet-600 text-m font-bold mb-2">Dashboard</h2>
+          <a href="#" class="text-neutral-500 text-m font-bold mb-2 hover:text-violet-600 transition-colors duration-300 whitespace-nowrap">View Goals</a>
+          <a href="#" class="text-neutral-500 text-m font-bold mb-2 hover:text-violet-600 transition-colors duration-300">New Goal</a>
+        </div>
+      <!--Account-->
+        <div class="flex flex-col mx-4">
+          <h2 class="text-m font-bold mb-2">Account</h2>
+          <a href="#" class="text-neutral-500 text-m font-bold mb-2 hover:text-violet-600 transition-colors duration-300">Help</a>
+          <a href="#" class="text-neutral-500 text-m font-bold mb-2 hover:text-violet-600 transition-colors duration-300">Privacy</a>
+          <a href="#" class="text-neutral-500 text-m font-bold mb-2 hover:text-violet-600 transition-colors duration-300">Logout</a>
+        </div>
+      </div>
+
+      <!-- Content -->
+      <div class="container mx-auto flex flex-col p-16">
+
+        <!--Title + Add Goal-->
+        <div class="flex flex-col lg:flex-row justify-between items-center mb-16">
+          <div class="text-center lg:text-start">
+              <h1 class="text-3xl font-bold">My Goal Dashboard</h1>
+              <h2 class="text-neutral-500">Welcome to your dashboard. Here you can view and add your goals.</h2>
+          </div>
+
+          <!--Add Goal Button-->
+          <div class="mt-6 lg:mt-0">
+            <a href="#" class="bg-violet-600 text-white font-bold py-2 px-4 rounded hover:bg-indigo-600 transition-colors duration-300">Add Goal</a>
+          </div>
+        </div>
+
+        <!--My Goals-->
+        <div class="text-center lg:text-start">
+          <h1 class="text-2xl font-bold mb-4">My Goals</h1>
+
+          <!--Goal #1-->
+          <div class="justify-center lg:justify-between flex flex-wrap gap-6">
+            {{!-- <div class="flex flex-col goalCont">
+              <div class="w-64 h-64 bg-gray-400 rounded"></div>
+
+              <div class="text-start mt-4">
+                <h3><b>Goal: </b>Enter Goal</h3>
+                <h3><b>Type: </b> Actionable / Habitual</h3>
+                <h3><b>Unit: </b> Enter Unit</h3>
+                <h3><b>Completion Date: </b> Enter Date</h3>
+              </div>
+            
+              <input type="text" class="border-rounded border-gray-400 border rounded p-2 mt-4" placeholder="Add entry or note">
+              <a href="#" class="bg-violet-600 text-white font-bold py-2 px-4 rounded mt-4 hover:bg-indigo-600 transition-colors duration-300">Add Entry</a>
+            </div> --}}
+            {{#each goals as |goal|}}
+                <div class="flex flex-col goalCont">
+                    <div class="w-64 h-64 bg-gray-400 rounded"></div>
+
+                    <div class="text-start mt-4">
+                        <h3><b>Goal: </b>{{ goal.name}}</h3>
+                        <h3><b>Type: </b> {{#if goal.direction}}Actionable{{/if}} 
+                                        {{#unless goal.direction}}Habitual{{/unless}}</h3>
+                        {{#if goal.direction}}
+                        <h3><b>Unit: </b> {{goal.unit}}</h3>
+                        {{/if}}
+                        <h3><b>Completion Date: </b>{{format_date goal.due_date}}</h3>
+                    </div>
+                    
+                    <input type="text" class="border-rounded border-gray-400 border rounded p-2 mt-4" placeholder="Add entry or note">
+                    <a href="#" class="bg-violet-600 text-white font-bold py-2 px-4 rounded mt-4 hover:bg-indigo-600 transition-colors duration-300">Add Entry</a>
+                </div>
+
+            {{/each}}
+            </div>
+
+            <script>
+                document.addEventListener("DOMContentLoaded", function() {
+                    gsap.from('.goalCont', {
+                        duration: 0.5, // Duration of each individual animation
+                        opacity: 0, // Start fully transparent
+                        x: -100, // Start 100 pixels to the left of their natural position
+                        stagger: 0.2, // Delay of 0.2 seconds between the start of each element's animation
+                        ease: 'power1.out' // Smoothing effect for the animation
+                    });
+                });
+            </script>
