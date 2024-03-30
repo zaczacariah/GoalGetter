@@ -20,6 +20,7 @@ router.get('/dashboard-goals', async (req, res) => {
         ],
         where: {
             user_id: req.session.user_id
+            // user_id: 1
         }
     });
 
@@ -39,6 +40,7 @@ router.get('/dashboard-goals', async (req, res) => {
         ],
         where: {
             user_id: req.session.user_id
+            // user_id: 1
         }
     });
 

@@ -2,6 +2,9 @@ const router = require('express').Router();
 // Import the User model from the models folder
 const { User } = require('../../models');
 
+// Import validator from module
+var validator = require('validator');
+
 
 // If a POST request is made to /api/user, a new user is created. The user id and logged in state is saved to the session within the request object.
 router.post('/', async (req, res) => {
@@ -22,6 +25,10 @@ router.post('/', async (req, res) => {
 // If a POST request is made to /api/users/login, the function checks to see if the user information matches the information in the database and logs the user in. If correct, the user ID and logged-in state are saved to the session within the request object.
 router.post('/login', async (req, res) => {
   console.log(req.body.email);
+  if (!validator.isEmail(req.body.email)) {
+    res.status(400).json({ message: 'Please input valid email.'});
+    return;
+  };
   try {
     const userData = await User.findOne({ where: { email: req.body.email } });
     

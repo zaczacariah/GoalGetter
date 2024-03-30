@@ -24,6 +24,7 @@
     "mysql2": "^2.2.5",
     "npm": "^10.5.0",
     "sequelize": "^6.3.5",
-    "tailwind": "^4.0.0"
+    "tailwind": "^4.0.0",
+    "validator": "^13.11.0"
   }
 }

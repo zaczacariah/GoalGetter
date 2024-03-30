@@ -27,7 +27,7 @@ async function logIn(event){
         })
 
         if(loggedIn.status === 200){
-            window.location.href = '/home';
+            window.location.href = '/dashboard-goals';
         } else {
             const message = await loggedIn.json();
             console.log(message)
