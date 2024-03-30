@@ -7,7 +7,7 @@ const { ActionableGoal, ActionableGoalEntry } = require('../../models');
 
 router.get('/', async (req, res) => {
     try {
-        
+
         const actionableGoals = await ActionableGoal.findAll({
             include: [
                 {
@@ -17,10 +17,13 @@ router.get('/', async (req, res) => {
                         "quantity",
                         "notes",
                         "date_created"
-            
+
                     ]
                 }
-            ]
+            ],
+            where: {
+                user_id: req.session.user_id
+            }
         });
 
         if(!actionableGoals){
@@ -39,7 +42,11 @@ router.get('/', async (req, res) => {
 router.get('/:id', async (req, res) => {
     try {
         
-        const goal = await ActionableGoal.findByPk(req.params.id, {
+        const goal = await ActionableGoal.findOne({
+            where: {
+                id: req.params.id, // Primary key filter
+                user_id: req.session.user_id // Additional filtering condition
+            },
             include: [
                 {
                     model: ActionableGoalEntry,
@@ -48,7 +55,6 @@ router.get('/:id', async (req, res) => {
                         "quantity",
                         "notes",
                         "date_created"
-            
                     ]
                 }
             ]
@@ -84,6 +90,18 @@ router.put('/:id', async (req, res) => {
         }
     }
 
+    // Check if the goal exists and belongs to the user
+    const goal = await ActionableGoal.findOne({
+    where: {
+        id: req.params.id,
+        user_id: req.session.user_id
+    }
+    });
+
+    if (!goal) {
+    return res.status(404).send('No goal found with the provided id for the current user.');
+    }
+
     const updatedGoal = await ActionableGoal.update({
         name,
         notes,
@@ -93,12 +111,13 @@ router.put('/:id', async (req, res) => {
     },
     {
         where: {
-            id: req.params.id
+            id: req.params.id,
+            user_id: req.session.user_id
         }
     });
 
 
-    return res.status(202).json(updatedGoal);
+    return res.status(202).send("Goal Succesfully Updated");
 
 });
 
@@ -116,13 +135,16 @@ router.put('/:id', async (req, res) => {
 router.post('/', async (req, res) => {
     // check if there is valid req
     const { name, unit, direction, description, goal_amount, due_date } = req.body;
-    if (!name && !unit && !direction && !description && !goal_amount && !due_date) {
+    if (!name || !unit || !direction || !description || !goal_amount || !due_date) {
         res.status(400).json({ message: "No data to create goal"});
         return;
     };
 
     try {
-        const newActionableGoal = await ActionableGoal.create(req.body);
+        const newActionableGoal = await ActionableGoal.create({
+            ...req.body,
+            user_id: req.session.user_id
+        });
         res.status(200).json(newActionableGoal);
     } catch (error) {
         res.status(500).json(error);
@@ -141,7 +163,8 @@ router.delete('/:id', async (req, res) => {
         
         const deletedActionableGoal = await ActionableGoal.destroy({
             where: {
-                id: req.params.id
+                id: req.params.id,
+                user_id: req.session.user_id
             }
         });
 
