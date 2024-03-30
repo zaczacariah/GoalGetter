@@ -13,7 +13,20 @@ router.put('/:id', async (req, res) => {
 
     try{
 
-        const updatedEntry = await ActionableGoalEntry.update({
+        //Checking if there is an AGE that belongs to this user
+        const entry = await ActionableGoalEntry.findByPk(req.params.id, {
+            include: [{
+              model: ActionableGoal,
+              attributes: [],
+              where: { user_id: req.session.user_id }
+            }]
+          });
+
+        if (!entry) {
+            return res.status(404).send("You do not have an Actionable Goal Entry with this ID");
+        }
+
+        await ActionableGoalEntry.update({
             quantity,
             notes
         },
@@ -23,10 +36,10 @@ router.put('/:id', async (req, res) => {
             }
         });
 
+        return res.status(202).send("Actionable Goal Entry Updated!");
 
-        return res.status(202).json(updatedEntry);
     } catch (error) {
-        return res.status(500).json(error);
+        return res.status(500).send(error);
     }
 
 });
@@ -42,14 +55,28 @@ router.post('/', async (req, res) => {
 
     const { quantity, notes, actionable_goal_id } = req.body;
 
+    if ( !quantity || !notes || !actionable_goal_id ) {
+        return res.status(400).send("Actionable Goal Entries require the following properties: quantity, notes and actionable_goal_id");
+    }
+
     try {
-        // check if req.body is not empty
-        if ( quantity && notes && actionable_goal_id ) {
-            const newActionableEntry = await ActionableGoalEntry.create(req.body);
-            res.status(200).json(newActionableEntry);            
-        } else {
-            res.status(400).json({ message: 'Actionable Goal Entries require the following properties: quantity, notes and actionable_goal_id' });
-        };
+        
+    // Check if the goal exists and belongs to the user
+        const goal = await ActionableGoal.findOne({
+            where: {
+                id: actionable_goal_id,
+                user_id: req.session.user_id
+            }
+        });
+
+        if (!goal) {
+            return res.status(404).send('No goal found with the provided id for the current user.');
+        }
+    
+       
+        const newActionableEntry = await ActionableGoalEntry.create(req.body);
+        res.status(200).json(newActionableEntry);            
+  
         
     } catch (error) {
         res.status(500).json(error);
@@ -66,19 +93,28 @@ router.delete('/:id', async (req, res) => {
 
     try {
 
-        const deletedActionableEntry = await ActionableGoalEntry.destroy({
+                
+        //Checking if there is an AGE that belongs to this user
+        const entry = await ActionableGoalEntry.findByPk(req.params.id, {
+            include: [{
+              model: ActionableGoal,
+              attributes: [],
+              where: { user_id: req.session.user_id }
+            }]
+          });
+
+        if (!entry) {
+            return res.status(404).send("You do not have an Actionable Goal Entry with this ID");
+        }
+
+        await ActionableGoalEntry.destroy({
             where: {
                 id: req.params.id
             }
         });
 
-        // check if the goal is not found to delete
-        if (!deletedActionableEntry) {
-            return res.status(404).json({ message: 'No Entry found with this id!' });
-            
-        };
-
-        res.status(200).json(deletedActionableEntry);            
+  
+        res.status(200).send("Succesfully Deleted");            
         
     } catch (error) {
         res.status(500).json(error);

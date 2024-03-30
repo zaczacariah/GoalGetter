@@ -18,11 +18,14 @@ router.get('/', async (req, res) => {
                         "date_created" 
                     ]
                 }
-            ]
+            ],
+            where: {
+                user_id: req.session.user_id
+            }
         });
 
         if(!habitualGoals){
-            res.status(404).json({ message: "No Actionable Goals Found"})
+            res.status(404).send({ message: "No Actionable Goals Found"})
             return;
         }
 
@@ -37,19 +40,19 @@ router.get('/', async (req, res) => {
 router.get('/:id', async (req, res) => {
     try {
         
-        const goal = await HabitualGoal.findByPk(req.params.id, {
+        const goal = await HabitualGoal.findOne({
+            where: {
+                id: req.params.id, // Primary key filter
+                user_id: req.session.user_id // Additional filtering condition
+            },
             include: [
                 {
                     model: HabitualGoalEntry,
-                    attributes: [
-                        "id",
-                        "notes",
-                        "date_created"
-            
-                    ]
+                    attributes: ["id", "notes", "date_created"]
                 }
             ]
         });
+        
 
         if(!goal){
             return res.status(404).json({ message: "No Habitual Goal Found"});
@@ -81,21 +84,38 @@ router.put('/:id', async (req, res) => {
         }
     }
 
-    const updatedGoal = await HabitualGoal.update({
-        name,
-        notes,
-        description,
-        due_date,
-        goal_amount
-    },
-    {
+      // Check if the goal exists and belongs to the user
+      const goal = await HabitualGoal.findOne({
         where: {
-            id: req.params.id
+          id: req.params.id,
+          user_id: req.session.user_id
         }
-    });
+      });
+  
+      if (!goal) {
+        return res.status(404).send('No goal found with the provided id for the current user.');
+      }
+
+    try{
+        const updatedGoal = await HabitualGoal.update({
+            name,
+            notes,
+            description,
+            due_date,
+            goal_amount
+        },
+        {
+            where: {
+                id: req.params.id,
+                user_id: req.session.user_id
+            }
+        });
 
 
-    return res.status(202).json(updatedGoal);
+        return res.status(202).send("Goal Successfully Updated");
+    }catch(error){
+        return res.status(500).send(error);
+    }
 
 });
 
@@ -117,7 +137,9 @@ router.post('/', async (req, res) => {
     };
 
     try {
-        const newHabitualGoal = await HabitualGoal.create(req.body);
+        const newHabitualGoal = await HabitualGoal.create({
+            ...req.body,
+            user_id: req.session.user_id});
         res.status(200).json(newHabitualGoal);            
     
     } catch (error) {
