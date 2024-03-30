@@ -27,7 +27,7 @@ async function logIn(event){
         })
 
         if(loggedIn.status === 200){
-            window.location.href = '/home';
+            window.location.href = '/dashboard-goals';
         } else {
             const message = await loggedIn.json();
             console.log(message)
@@ -36,4 +36,20 @@ async function logIn(event){
     } catch(err){
         
     }
-}
+};
+
+// catch logout click
+const logout = async () => {
+    const response = await fetch('/api/users/logout', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+    });
+  
+    if (response.ok) {
+      document.location.replace('/');
+    } else {
+      alert(response.statusText);
+    }
+};
+document.querySelector('#logout').addEventListener('click', logout);
+  
