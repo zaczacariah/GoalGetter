@@ -30,6 +30,10 @@ ActionableGoal.init(
             type: DataTypes.STRING,
             allowNull: false
         },
+        imgUrl: {
+            type: DataTypes.STRING,
+            allowNull: true
+        },
         goal_amount: {
             type: DataTypes.INTEGER,
             allowNull: false

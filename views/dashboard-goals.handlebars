@@ -12,7 +12,7 @@
 
           <!--Add Goal Button-->
           <div class="mt-6 lg:mt-0">
-            <a href="/new-goal" class="bg-violet-600 text-white font-bold py-2 px-4 rounded hover:bg-indigo-600 transition-colors duration-300">Add Goal</a>
+            <a href="../goals/new" class="bg-violet-600 text-white font-bold py-2 px-4 rounded hover:bg-indigo-600 transition-colors duration-300">Add Goal</a>
           </div>
         </div>
 
@@ -37,16 +37,18 @@
             </div> --}}
             {{#each goals as |goal|}}
                 <div class="flex flex-col goalCont">
-                    <div class="w-64 h-64 bg-gray-400 rounded"></div>
+                    <div class="w-64 h-64 bg-gray-400 rounded goalImg" style="background-image: url('{{goal.imgUrl}}')"></div>
 
                     <div class="text-start mt-4">
-                        <h3><b>Goal: </b>{{ goal.name}}</h3>
-                        <h3><b>Type: </b> {{#if goal.direction}}Actionable{{/if}} 
-                                        {{#unless goal.direction}}Habitual{{/unless}}</h3>
-                        {{#if goal.direction}}
-                        <h3><b>Unit: </b> {{goal.unit}}</h3>
-                        {{/if}}
-                        <h3><b>Completion Date: </b>{{format_date goal.due_date}}</h3>
+                      <h3><b>Title: </b>{{ goal.name}}</h3>
+                      <h3><b>Type: </b> {{#if goal.direction}}Actionable{{/if}} 
+                                      {{#unless goal.direction}}Habitual{{/unless}}</h3>
+                      {{#if goal.direction}}
+                      <h3><b>Goal: </b>{{ goal.goal_amount}}</h3>
+                      
+                      <h3><b>Unit: </b> {{goal.unit}}</h3>
+                      {{/if}}
+                      <h3><b>Completion Date: </b>{{format_date goal.due_date}}</h3>
                     </div>
                     
                     <input type="text" class="border-rounded border-gray-400 border rounded p-2 mt-4" placeholder="Add entry or note">
