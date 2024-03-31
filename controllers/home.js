@@ -76,7 +76,7 @@ router.get('/signup', async (req, res) => {
   res.render('signup');
 });
 
-router.get('/new-goal', withAuth, async (req, res) => {
+router.get('/goals/new', withAuth, async (req, res) => {
   res.render('new-goal', {
     layout: 'alternative',
   });

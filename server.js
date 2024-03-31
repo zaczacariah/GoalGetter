@@ -50,7 +50,8 @@ app.use(routes);
 app.post('/upload', upload.single('image'), (req, res) => {
   // Assuming you serve uploaded files under the 'public' directory
   const imageUrl = `${req.protocol}://${req.get('host')}/uploads/${req.file.filename}`;
-  res.send({ imageUrl: imageUrl });
+ 
+  res.status(200).json({ imgUrl: imageUrl });
 });
 
 sequelize.sync({ force: false }).then(() => {

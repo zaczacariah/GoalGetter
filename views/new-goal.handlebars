@@ -9,9 +9,14 @@
           To add a new goal, complete the fields below and click ‘Submit’.
         </p>
         <br />
-        <form>
+        <form id="newGoalForm" enctype="multipart/form-data">
+          <div class="mb-4">
+                    <div id="imageUpload" class="w-64 h-64 bg-gray-400 rounded upload"></div>
+                    <input type="file" id="fileElem" style="display:none">
+                </div>
           <div class='mb-4'>
             <label
+           
               for='goal-title'
               class='block text-sm font-medium text-gray-700'
             >What is your goal?</label>
@@ -40,7 +45,7 @@
               <option value='habitual'>Habitual</option>
             </select>
           </div>
-          <div class='mb-4'>
+          <div class='mb-4' id="unitField" style="display:none;">
             <label for='unit' class='block text-sm font-medium text-gray-700'>
               Unit (actionable goals only)
             </label>
@@ -56,6 +61,35 @@
               <option value='Kg'>Kilograms (Kg)</option>
               <option value='Steps'>Steps</option>
               <option value='Km'>Kilometers (Km)</option>
+            </select>
+          </div>
+          <div class='mb-4' id="quantityField">
+            <label
+              for='quantity'
+              class='block text-sm font-medium text-gray-700'
+            >Goal Amount</label>
+            <input
+              type='number'
+              id='quantity'
+              name='quantity'
+              class='mt-1 p-2 block w-full border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500'
+              placeholder='Enter the goal amount'
+            />
+          </div>
+          <div class='mb-4' id="directionField" style="display:none;">
+            <label for='unit' class='block text-sm font-medium text-gray-700'>
+              Direction (lose or gain)
+            </label>
+            <select
+              id='unit'
+              name='unit'
+              class='mt-1 p-2 block w-full border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500'
+            >
+              <option value='' disabled selected>
+                Choose your direction
+              </option>
+              <option value='ASC'>Increase</option>
+              <option value='DESC'>Decrease</option>
             </select>
           </div>
           <div class='mb-4'>
@@ -135,3 +169,91 @@
     </div>
   </div>
 </div>
+
+
+      <script>
+       document.addEventListener('DOMContentLoaded', (event) => {
+            let dropArea = document.getElementById('imageUpload');
+            let fileElem = document.getElementById('fileElem');
+            let form = document.getElementById("newGoalForm");
+            let goalTypeField = document.getElementById('goal-type');
+            let unitField = document.getElementById('unitField');
+
+            let directionField = document.getElementById('directionField');
+
+            goalTypeField.addEventListener('change', function(e){
+              const value = goalTypeField.value;
+              
+              if(value === "actionable"){
+                [unitField, directionField].forEach((item) => item.style.display = "block");
+              } else {
+                [unitField, directionField].forEach((item) => item.style.display = "none");
+              }
+            })
+
+
+
+            form.addEventListener("submit", addNewGoal);
+
+            // Highlighting effects
+            function highlight(e) { dropArea.classList.add('hover'); }
+            function unhighlight(e) { dropArea.classList.remove('hover'); }
+
+            // Drag events
+            ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+                dropArea.addEventListener(eventName, preventDefaults, false);
+            });
+            ['dragenter', 'dragover'].forEach(eventName => {
+                dropArea.addEventListener(eventName, highlight, false);
+            });
+            ['dragleave', 'drop'].forEach(eventName => {
+                dropArea.addEventListener(eventName, unhighlight, false);
+            });
+
+            // Handle drop
+            dropArea.addEventListener('drop', handleDrop, false);
+
+            function handleDrop(e) {
+                let dt = e.dataTransfer;
+                let files = dt.files;
+                
+                if (!files[0].type.startsWith('image/')){ return }
+                fileUploaded = files;
+
+                let file = fileUploaded[0];
+
+                const reader = new FileReader();
+                reader.readAsDataURL(file);
+                reader.onloadend = () => {
+                  dropArea.style.backgroundImage = `url('${reader.result}')`;
+                 // Optionally clear the drop area text
+                };
+                
+
+            }
+
+            
+
+            // Handle file selection via input
+            dropArea.addEventListener('click', function() {
+                fileElem.click();
+            });
+            fileElem.addEventListener('change', handleFilesFromInput);
+
+            function handleFilesFromInput(e) {
+            
+                let files = e.target.files;
+                
+                fileUploaded = files;
+            }
+
+           // General function to handle files
+            function handleFiles(files) {
+              
+            } 
+
+            
+            });
+
+
+      </script>

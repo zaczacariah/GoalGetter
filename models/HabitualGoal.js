@@ -23,6 +23,10 @@ HabitualGoal.init(
             type: DataTypes.INTEGER,
             allowNull: false
         },
+        imgUrl: {
+            type: DataTypes.STRING,
+            allowNull: true
+        },
         due_date: {
             type: DataTypes.DATE,
             allowNull: false
