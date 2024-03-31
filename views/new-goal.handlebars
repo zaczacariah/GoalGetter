@@ -1,0 +1,137 @@
+<!-- Content -->
+<div class='flex-grow p-6'>
+  <div class='flex flex-col md:flex-row'>
+    <div class='md:w-1/3 md:pr-4 mb-4'>
+      <!-- First column content -->
+      <div>
+        <h2 class='text-xl font-bold mb-4'>Add New Goal</h2>
+        <p>
+          To add a new goal, complete the fields below and click ‘Submit’.
+        </p>
+        <br />
+        <form>
+          <div class='mb-4'>
+            <label
+              for='goal-title'
+              class='block text-sm font-medium text-gray-700'
+            >What is your goal?</label>
+            <input
+              type='text'
+              id='goal-title'
+              name='goal-title'
+              class='mt-1 p-2 block w-full border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500'
+              placeholder='Enter the name of your goal'
+            />
+          </div>
+          <div class='mb-4'>
+            <label
+              for='goal-type'
+              class='block text-sm font-medium text-gray-700'
+            >What is your goal type?</label>
+            <select
+              id='goal-type'
+              name='goal-type'
+              class='mt-1 p-2 block w-full border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500'
+            >
+              <option value='' disabled selected>
+                Choose your goal type
+              </option>
+              <option value='actionable'>Actionable</option>
+              <option value='habitual'>Habitual</option>
+            </select>
+          </div>
+          <div class='mb-4'>
+            <label for='unit' class='block text-sm font-medium text-gray-700'>
+              Unit (actionable goals only)
+            </label>
+            <select
+              id='unit'
+              name='unit'
+              class='mt-1 p-2 block w-full border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500'
+            >
+              <option value='' disabled selected>
+                Choose your unit type
+              </option>
+              <option value='$'>Dollars ($)</option>
+              <option value='Kg'>Kilograms (Kg)</option>
+              <option value='Steps'>Steps</option>
+              <option value='Km'>Kilometers (Km)</option>
+            </select>
+          </div>
+          <div class='mb-4'>
+            <label
+              for='due-date'
+              class='block text-sm font-medium text-gray-700'
+            >Completion Due Date (actionable goals only)</label>
+            <input
+              type='date'
+              id='due-date'
+              name='due-date'
+              class='mt-1 p-2 block w-full border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500'
+            />
+          </div>
+          <div>
+            <button
+              type='submit'
+              class='bg-indigo-600 text-white font-semibold py-2 px-4 rounded-md hover:bg-indigo-700'
+            >
+              Submit
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class='md:w-2/3 md:pl-4 mb-4'>
+      <!-- Second column content -->
+      <div>
+        <h2 class='text-xl font-bold mb-4 text-gray-400'>
+          Actionable vs Habitual Goals
+        </h2>
+        <p class='mb-4 text-gray-400 text-sm'>
+          Not sure what category your goal falls under? Read the information
+          below for guidance.
+        </p>
+        <h3 class='font-bold mb-2 text-gray-400'>
+          What is an ‘actionable goal’?
+        </h3>
+        <p class='mb-4 text-gray-400 text-sm'>
+          An actionable goal is a type of goal that is specific, measurable,
+          achievable, relevant, and time-bound. Most commonly, actionable goals
+          are one-time achievements or milestones. They are well defined, clear
+          objectives with, most importantly, a deadline. Actionable goals are a
+          great way to define what you want to achieve and give yourself a
+          deadline to work with.
+        </p>
+        <h3 class='font-bold mb-2 text-gray-400'>
+          What is an example of an ‘actionable goal’?
+        </h3>
+        <ol class='mb-4 list-decimal ml-4 text-gray-400 text-sm'>
+          <li>Save $10,000 for a new car.</li>
+          <li>Lose 15kgs of weight.</li>
+          <li>Complete my university course.</li>
+        </ol>
+        <h3 class='font-bold mb-2 text-gray-400'>
+          What is a ‘habitual goal’?
+        </h3>
+        <p class='mb-4 text-gray-400 text-sm'>
+          What is a ‘habitual goal’? A habitual goal is type of goal that
+          focuses on establishing or changing habits over time. Unlike
+          actionable goals that are commonly one time achievements or
+          milestones, habitual goals require consistent behaviour and effort to
+          build a new yourself a new routine. Habitual goals are essential for
+          fostering personal growth and self discipline. They require
+          consistency, patience and perserverance to build new habits or break
+          old ones.
+        </p>
+        <h3 class='font-bold mb-2 text-gray-400'>
+          What is an example of a 'habitual goal'?
+        </h3>
+        <ol class='list-decimal ml-4 text-gray-400 text-sm'>
+          <li>Exercising for 30 minutes each day.</li>
+          <li>Meditating for 10 minutes every morning.</li>
+          <li>Writing in a journal before bed time each night.</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</div>
