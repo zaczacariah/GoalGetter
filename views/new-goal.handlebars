@@ -170,90 +170,93 @@
   </div>
 </div>
 
+<!-- Success notification -->
+<div id="successNotification" class="fixed bottom-0 left-0 right-0 bg-green-500 text-white p-4 text-center hidden">
+  A new goal has been added successfully!
+</div>
 
-      <script>
-       document.addEventListener('DOMContentLoaded', (event) => {
-            let dropArea = document.getElementById('imageUpload');
-            let fileElem = document.getElementById('fileElem');
-            let form = document.getElementById("newGoalForm");
-            let goalTypeField = document.getElementById('goal-type');
-            let unitField = document.getElementById('unitField');
+<script>
+  document.addEventListener('DOMContentLoaded', (event) => {
+    let dropArea = document.getElementById('imageUpload');
+    let fileElem = document.getElementById('fileElem');
+    let form = document.getElementById("newGoalForm");
+    let goalTypeField = document.getElementById('goal-type');
+    let unitField = document.getElementById('unitField');
+    let directionField = document.getElementById('directionField');
+    const successNotification = document.getElementById("successNotification");
 
-            let directionField = document.getElementById('directionField');
+    goalTypeField.addEventListener('change', function(e){
+      const value = goalTypeField.value;
+      
+      if(value === "actionable"){
+        [unitField, directionField].forEach((item) => item.style.display = "block");
+      } else {
+        [unitField, directionField].forEach((item) => item.style.display = "none");
+      }
+    });
 
-            goalTypeField.addEventListener('change', function(e){
-              const value = goalTypeField.value;
-              
-              if(value === "actionable"){
-                [unitField, directionField].forEach((item) => item.style.display = "block");
-              } else {
-                [unitField, directionField].forEach((item) => item.style.display = "none");
-              }
-            })
+    form.addEventListener("submit", function(event) {
+      event.preventDefault();
+      
+      // Not sure how to write the logic
+      
+      // Display a success notification
+      successNotification.classList.remove("hidden");
+      
+      // Hide the notification after 3 seconds delay
+      setTimeout(function() {
+        successNotification.classList.add("hidden");
+      }, 3000);
+    });
 
+    // Highlighting effects
+    function highlight(e) { dropArea.classList.add('hover'); }
+    function unhighlight(e) { dropArea.classList.remove('hover'); }
 
+    // Drag events
+    ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+      dropArea.addEventListener(eventName, preventDefaults, false);
+    });
+    ['dragenter', 'dragover'].forEach(eventName => {
+      dropArea.addEventListener(eventName, highlight, false);
+    });
+    ['dragleave', 'drop'].forEach(eventName => {
+      dropArea.addEventListener(eventName, unhighlight, false);
+    });
 
-            form.addEventListener("submit", addNewGoal);
+    // Handle drop
+    dropArea.addEventListener('drop', handleDrop, false);
 
-            // Highlighting effects
-            function highlight(e) { dropArea.classList.add('hover'); }
-            function unhighlight(e) { dropArea.classList.remove('hover'); }
+    function handleDrop(e) {
+      let dt = e.dataTransfer;
+      let files = dt.files;
+      
+      if (!files[0].type.startsWith('image/')){ return }
+      fileUploaded = files;
 
-            // Drag events
-            ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
-                dropArea.addEventListener(eventName, preventDefaults, false);
-            });
-            ['dragenter', 'dragover'].forEach(eventName => {
-                dropArea.addEventListener(eventName, highlight, false);
-            });
-            ['dragleave', 'drop'].forEach(eventName => {
-                dropArea.addEventListener(eventName, unhighlight, false);
-            });
+      let file = fileUploaded[0];
 
-            // Handle drop
-            dropArea.addEventListener('drop', handleDrop, false);
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onloadend = () => {
+        dropArea.style.backgroundImage = `url('${reader.result}')`;
+       // Optionally clear the drop area text
+      };
+    }
 
-            function handleDrop(e) {
-                let dt = e.dataTransfer;
-                let files = dt.files;
-                
-                if (!files[0].type.startsWith('image/')){ return }
-                fileUploaded = files;
+    // Handle file selection via input
+    dropArea.addEventListener('click', function() {
+      fileElem.click();
+    });
+    fileElem.addEventListener('change', handleFilesFromInput);
 
-                let file = fileUploaded[0];
+    function handleFilesFromInput(e) {
+      let files = e.target.files;
+      fileUploaded = files;
+    }
 
-                const reader = new FileReader();
-                reader.readAsDataURL(file);
-                reader.onloadend = () => {
-                  dropArea.style.backgroundImage = `url('${reader.result}')`;
-                 // Optionally clear the drop area text
-                };
-                
-
-            }
-
-            
-
-            // Handle file selection via input
-            dropArea.addEventListener('click', function() {
-                fileElem.click();
-            });
-            fileElem.addEventListener('change', handleFilesFromInput);
-
-            function handleFilesFromInput(e) {
-            
-                let files = e.target.files;
-                
-                fileUploaded = files;
-            }
-
-           // General function to handle files
-            function handleFiles(files) {
-              
-            } 
-
-            
-            });
-
-
-      </script>
+    // General function to handle files
+    function handleFiles(files) {
+    }
+  });
+</script>
