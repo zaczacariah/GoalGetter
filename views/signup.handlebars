@@ -7,15 +7,29 @@
       <div class='mb-4'>
         <label
           class='block text-gray-700 text-sm font-bold mb-2'
+          for='name'
+        >
+          Your name
+        </label>
+        <input
+          class='border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
+          id='name'
+          type='text'
+          placeholder='Type your name'
+        />
+      </div>
+      <div class='mb-4'>
+        <label
+          class='block text-gray-700 text-sm font-bold mb-2'
           for='username'
         >
-          Username
+          Username - Email
         </label>
         <input
           class='border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
           id='username'
           type='text'
-          placeholder='Type your username'
+          placeholder='Type your email'
         />
       </div>
       <div class='mb-6'>
@@ -34,6 +48,7 @@
       </div>
       <div class='flex justify-center'>
         <button
+          id="signup"
           class='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-8 rounded focus:outline-none focus:shadow-outline'
           type='button'
         >
@@ -44,8 +59,4 @@
   </div>
 </div>
 
-<script>
-  document.addEventListener("DOMContentLoaded", function() {
-  document.getElementById("signupForm").addEventListener("submit", (event) =>
-  logIn(event)); });
-</script>
+<script src="./js/signup.js"></script>
