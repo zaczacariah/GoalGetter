@@ -21,7 +21,7 @@
   <h1 class="text-2xl font-bold mb-4">My Goals</h1>
 
   <!--Goal #1-->
-  <div class="justify-center lg:justify-start flex flex-wrap gap-6">
+  <div class="goals justify-center lg:justify-start flex flex-wrap gap-6">
     {{!-- <div class="flex flex-col goalCont">
       <div class="w-64 h-64 bg-gray-400 rounded"></div>
 
@@ -54,8 +54,8 @@
           <h3><b>Completion Date: </b>{{format_date goal.due_date}}</h3>
         </div>
         
-        <input type="text" class="border-rounded border-gray-400 border rounded p-2 mt-4" placeholder="Add entry or note">
-        <a href="#" class="bg-violet-600 text-white font-bold py-2 px-4 rounded mt-4 hover:bg-indigo-600 transition-colors duration-300">Add Entry</a>
+        <input data-goal-id="{{goal.id}}" data-goal-type="{{#if goal.direction}}Actionable{{/if}}{{#unless goal.direction}}Habitual{{/unless}}" type="text" class="border-rounded border-gray-400 border rounded p-2 mt-4" placeholder="Add entry or note">
+        <a class="bg-violet-600 text-white font-bold py-2 px-4 rounded mt-4 hover:bg-indigo-600 transition-colors duration-300">Add Entry</a>
     
 
       <hr class="border-neutral-500">
