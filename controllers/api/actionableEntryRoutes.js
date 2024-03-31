@@ -2,6 +2,9 @@ const router = require('express').Router();
 // Import the User model from the models folder
 const { ActionableGoal, ActionableGoalEntry } = require('../../models');
 
+// Import validator from module
+var validator = require('validator');
+
 
 //Ben PUT
 router.put('/:id', async (req, res) => {
@@ -54,10 +57,16 @@ router.put('/:id', async (req, res) => {
 router.post('/', async (req, res) => {
 
     const { quantity, notes, actionable_goal_id } = req.body;
+    // console.log(req.body);
+    // console.log(!validator.isNumeric(quantity));
+    // console.log(!validator.isEmpty(notes));
+    // console.log(!validator.isNumeric(actionable_goal_id));
 
-    if ( !quantity || !notes || !actionable_goal_id ) {
+    if ( !validator.isNumeric(quantity) ||
+         !validator.isEmpty(notes) ||
+         !validator.isNumeric(actionable_goal_id) ) {
         return res.status(400).send("Actionable Goal Entries require the following properties: quantity, notes and actionable_goal_id");
-    }
+    };
 
     try {
         

@@ -2,6 +2,8 @@ const router = require('express').Router();
 // Import the models from the models folder
 const { HabitualGoalEntry, HabitualGoal} = require('../../models');
 
+// Import validator from module
+var validator = require('validator');
 
 // update an entry by its id
 // req.body looks like below:
@@ -60,7 +62,7 @@ router.post('/', async (req, res) => {
     // check if req.body is not empty
     const { notes, habitual_goal_id } = req.body;
 
-    if (!notes || !habitual_goal_id) {
+    if ( validator.isEmpty(notes) || !validator.isNumeric(habitual_goal_id) ) {
         return res.status(400).send("No Data to post");
     };
     
