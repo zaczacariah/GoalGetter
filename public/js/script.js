@@ -173,16 +173,10 @@ document.querySelector('#logout').addEventListener('click', logout);
 async function addEntryHandler(event) {
 
     if (event.target.matches('a')) {
-
-        console.log(event.target);
-        console.log(event.target.previousElementSibling);
-        
         const entryEl = event.target.previousElementSibling;
         const notes = entryEl.value.trim();
         const goal_id = entryEl.getAttribute('data-goal-id');
         const goalType = entryEl.getAttribute('data-goal-type');
-
-        console.log(notes, goal_id, goalType);
 
         if (notes === "") {
             return;

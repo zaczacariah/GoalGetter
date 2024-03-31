@@ -57,10 +57,6 @@ router.put('/:id', async (req, res) => {
 router.post('/', async (req, res) => {
 
     const { quantity, notes, actionable_goal_id } = req.body;
-    // console.log(req.body);
-    // console.log(!validator.isNumeric(quantity));
-    // console.log(!validator.isEmpty(notes));
-    // console.log(!validator.isNumeric(actionable_goal_id));
 
     if ( !validator.isNumeric(quantity) ||
          !validator.isEmpty(notes) ||
