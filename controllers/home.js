@@ -52,7 +52,7 @@ router.get('/dashboard-goals', withAuth, async (req, res) => {
   habitualGoals = habitualGoals.map((goal) => goal.get({ plain: true }));
 
   const goals = [...actionableGoals, ...habitualGoals];
-
+  console.log(goals);
   res.render('dashboard-goals', {
     layout: 'alternative',
     goals,
