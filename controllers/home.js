@@ -82,4 +82,14 @@ router.get('/new-goal', withAuth, async (req, res) => {
   });
 });
 
+router.get('/signup', (req, res) => {
+    // If the user is already logged in, redirect the request to dashboard-goals
+    if (req.session.logged_in) {
+      res.redirect('/dashboard-goals');
+      return;
+    }
+  
+    res.render('signup');
+  });
+
 module.exports = router;

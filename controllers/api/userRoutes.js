@@ -8,9 +8,42 @@ var validator = require('validator');
 
 // If a POST request is made to /api/user, a new user is created. The user id and logged in state is saved to the session within the request object.
 router.post('/', async (req, res) => {
-  try {
-    const userData = await User.create(req.body);
+  const user = {};
+  // check if username is a valid email.
+  if (!validator.isEmail(req.body.username)) {
+    res.statusMessage = 'Please input valid email.';
+    res.status(400).end();
+    return;
+  } else {
+    user['email'] = req.body.username;
+  };
 
+  // check if password is strong
+  if (!validator.isStrongPassword(req.body.password, {
+    minLength: 8,
+    minUppercase: 0,
+    minNumbers: 1,
+    minSymbols: 0} )) {
+    res.statusMessage = 'The password should have at least 8 charaters including number.';
+    res.status(400).end();
+    return;
+  } else {
+    user['password'] = req.body.password;
+  };
+
+  // check if name is not empty
+  if (validator.isEmpty(req.body.name)) {
+    res.statusMessage = 'The name should not be empty.';
+    res.status(400).end();
+    return;
+  } else {
+    user['name'] = req.body.name;
+  };
+
+  try {
+    const userData = await User.create(user);
+
+    // automatic login after creating the account.
     req.session.save(() => {
       req.session.user_id = userData.id;
       req.session.logged_in = true;
@@ -18,7 +51,7 @@ router.post('/', async (req, res) => {
       res.status(200).json(userData);
     });
   } catch (err) {
-    res.status(400).json(err);
+    res.status(500).json(err);
   }
 });
 
