@@ -37,18 +37,21 @@
     </div> --}}
     {{#each goals as |goal|}}
     <div class="justify-center lg:justify-start flex flex-wrap gap-6 goalCont">
+      
       <div class="flex flex-col max-w-64 mb-16">
         
+    
         
         <div class="w-64 h-64 bg-gray-400 rounded goalImg" style="background-image: url('{{goal.imgUrl}}')"></div>
-
+        <div class="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700 my-2">
+          <div data-progress="{{goal.progress}}" class="bg-blue-600 h-2.5 rounded-full" style="width: {{goal.progress}}%"></div>
+        </div>
         <div class="text-start mt-4">
           <h3><b>Title: </b>{{ goal.name}}</h3>
           <h3><b>Type: </b> {{#if goal.direction}}Actionable{{/if}} 
                           {{#unless goal.direction}}Habitual{{/unless}}</h3>
-          {{#if goal.direction}}
           <h3><b>Goal: </b>{{ goal.goal_amount}}</h3>
-          
+          {{#if goal.direction}}
           <h3><b>Unit: </b> {{goal.unit}}</h3>
           {{/if}}
           <h3><b>Completion Date: </b>{{format_date goal.due_date}}</h3>
@@ -91,7 +94,7 @@
             <div class="m-2">
               <div class="bg-neutral-100 text-black py-2 px-4 rounded">
                 <div class="flex flex-row justify-between">
-                  <p class="text-xs font-bold text-neutral-500">Steps</p>
+                  <p class="text-xs font-bold text-neutral-500">+1 Step</p>
                   <p class="text-xs text-neutral-500">{{format_date entry.date_created}}</p>
                 </div>
           

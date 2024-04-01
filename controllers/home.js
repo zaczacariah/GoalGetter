@@ -33,8 +33,15 @@ router.get('/dashboard-goals', withAuth, async (req, res) => {
     },
   });
 
-  actionableGoals = actionableGoals.map((goal) => goal.get({ plain: true }));
-
+  actionableGoals = await Promise.all(actionableGoals.map(async (goal) => {
+    const progress = await goal.goalProgress(); 
+    const goalPlain = goal.get({ plain: true });
+    goalPlain.progress = progress; // Assign the calculated progress
+    console.log(goalPlain.progress); 
+    return goalPlain; 
+  }));
+  
+  console.log(actionableGoals)
   //Habitual
   let habitualGoals = await HabitualGoal.findAll({
     include: [
@@ -49,10 +56,16 @@ router.get('/dashboard-goals', withAuth, async (req, res) => {
     },
   });
 
-  habitualGoals = habitualGoals.map((goal) => goal.get({ plain: true }));
+  habitualGoals = await Promise.all(habitualGoals.map(async (goal) => {
+    const progress = await goal.goalProgress(); 
+    const goalPlain = goal.get({ plain: true }); 
+    goalPlain.progress = progress; // Assign the calculated progress
+    return goalPlain; // Return the modified plain object
+  }));
 
   const goals = [...actionableGoals, ...habitualGoals];
-  console.log(goals);
+  console.log("Goals:")
+  console.log(goals)
   res.render('dashboard-goals', {
     layout: 'alternative',
     goals,

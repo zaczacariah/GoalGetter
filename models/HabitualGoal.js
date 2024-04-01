@@ -1,7 +1,22 @@
 const {Model, DataTypes} = require('sequelize');
 const sequelize = require('../config/connection');
 
-class HabitualGoal extends Model {}
+class HabitualGoal extends Model {
+
+    async goalProgress() {
+       
+        const count = await sequelize.models.habitualGoalEntry.count({
+            where: { habitual_goal_id: this.id } 
+        });
+        if(!count){
+            return 0;
+        }
+        console.log(this.name + ": " + count)
+        let percent = (count/this.goal_amount)*100;
+        percent = percent > 100 ? 100 : percent;
+        return percent || 0; 
+    }
+}
 
 HabitualGoal.init(
     {
