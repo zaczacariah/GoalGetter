@@ -103,3 +103,7 @@ body {
   top: 254px;
   left: 232px;
 }
+
+.progress-bar {
+  transition: width 3s ease-in-out; /* Adjust the duration and easing as needed */
+}
