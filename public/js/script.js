@@ -8,8 +8,6 @@ function preventDefaults(e) {
     e.stopPropagation();
 }
 async function uploadFile(file) {
-    console.log("Within uploadFile");
-    console.log(file);
     let url = '/upload';
     let formData = new FormData();
     formData.append('image', file);
@@ -37,11 +35,7 @@ async function addNewGoal(event) {
         const file = fileUploaded[0];
         
         const { imgUrl } = await uploadFile(file);
-   
-        
-        
 
-        
         const { target } = event;
         
         const name = target[1].value ? target[1].value : false;
@@ -97,7 +91,8 @@ async function addNewGoal(event) {
         });
 
         if(response.ok){
-            return window.location.href = '../dashboard-goals';
+            return window.location.href = '../dashboard-goals?newGoalSuccess=true';
+           
             
         } else {
             console.error(response);

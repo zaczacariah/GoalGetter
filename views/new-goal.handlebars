@@ -77,12 +77,12 @@
             />
           </div>
           <div class='mb-4' id="directionField" style="display:none;">
-            <label for='unit' class='block text-sm font-medium text-gray-700'>
+            <label for='direction' class='block text-sm font-medium text-gray-700'>
               Direction (lose or gain)
             </label>
             <select
-              id='unit'
-              name='unit'
+              id='direction'
+              name='direction'
               class='mt-1 p-2 block w-full border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500'
             >
               <option value='' disabled selected>
@@ -170,10 +170,7 @@
   </div>
 </div>
 
-<!-- Success notification -->
-<div id="successNotification" class="fixed bottom-0 left-0 right-0 bg-green-500 text-white p-4 text-center hidden">
-  A new goal has been added successfully!
-</div>
+
 
 <script>
   document.addEventListener('DOMContentLoaded', (event) => {
@@ -183,7 +180,7 @@
     let goalTypeField = document.getElementById('goal-type');
     let unitField = document.getElementById('unitField');
     let directionField = document.getElementById('directionField');
-    const successNotification = document.getElementById("successNotification");
+   
 
     goalTypeField.addEventListener('change', function(e){
       const value = goalTypeField.value;
@@ -195,19 +192,7 @@
       }
     });
 
-    form.addEventListener("submit", function(event) {
-      event.preventDefault();
-      
-      // Not sure how to write the logic
-      
-      // Display a success notification
-      successNotification.classList.remove("hidden");
-      
-      // Hide the notification after 3 seconds delay
-      setTimeout(function() {
-        successNotification.classList.add("hidden");
-      }, 3000);
-    });
+    form.addEventListener('submit', (event) => addNewGoal(event));
 
     // Highlighting effects
     function highlight(e) { dropArea.classList.add('hover'); }
@@ -256,7 +241,7 @@
     }
 
     // General function to handle files
-    function handleFiles(files) {
-    }
+    //function handleFiles(files) {
+    //}
   });
 </script>
