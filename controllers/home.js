@@ -92,4 +92,16 @@ router.get('/signup', (req, res) => {
     res.render('signup');
   });
 
+  router.get('/goals/help', withAuth, async (req, res) => {
+    res.render('help', {
+      layout: 'alternative',
+    });
+  });
+
+    router.get('/goals/privacy', withAuth, async (req, res) => {
+      res.render('privacy', {
+        layout: 'alternative',
+      });
+    });
+
 module.exports = router;
