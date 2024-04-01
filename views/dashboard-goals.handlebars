@@ -42,10 +42,16 @@
         
     
         
-        <div class="w-64 h-64 bg-gray-400 rounded goalImg" style="background-image: url('{{goal.imgUrl}}')"></div>
-        <div class="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700 my-2">
-          <div data-progress="{{goal.progress}}" class="bg-blue-600 h-2.5 rounded-full" style="width: {{goal.progress}}%"></div>
+        <div class="w-64 h-64 bg-gray-400 rounded goalImg" style="background-image: url('{{goal.imgUrl}}')">
+          {{#if goal.completed }} <div style="height:100%; width:100%; background: gold; opacity:0.8;"></div>{{/if}}
+         
         </div>
+
+        <div class="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700 my-2">
+          <div data-progress="{{goal.progress}}" class="{{#if goal.completed }}bg-yellow-600{{/if}}{{#unless goal.completed}}bg-green-600{{/unless}} h-2.5 rounded-full" style="width: {{goal.progress}}%"></div>
+          {{#if goal.completed }}<img src="../images/star.png" class="completedStar" alt="" width="30px" height="30px" />{{/if}}
+        </div>
+        
         <div class="text-start mt-4">
           <h3><b>Title: </b>{{ goal.name}}</h3>
           <h3><b>Type: </b> {{#if goal.direction}}Actionable{{/if}} 
@@ -56,11 +62,11 @@
           {{/if}}
           <h3><b>Completion Date: </b>{{format_date goal.due_date}}</h3>
         </div>
-        
+        {{#unless goal.completed }}
         <input data-goal-id="{{goal.id}}" data-goal-type="{{#if goal.direction}}Actionable{{/if}}{{#unless goal.direction}}Habitual{{/unless}}" 
         type="{{#if goal.direction}}number{{/if}}{{#unless goal.direction}}text{{/unless}}" class="border-rounded border-gray-400 border rounded p-2 mt-4" placeholder="Add entry or note">
         <a class="bg-violet-600 text-white font-bold py-2 px-4 rounded mt-4 hover:bg-indigo-600 transition-colors duration-300">Add Entry</a>
-    
+        {{/unless}}
 
       <hr class="border-neutral-500">
 

@@ -37,7 +37,7 @@ router.get('/dashboard-goals', withAuth, async (req, res) => {
     const progress = await goal.goalProgress(); 
     const goalPlain = goal.get({ plain: true });
     goalPlain.progress = progress; // Assign the calculated progress
-    console.log(goalPlain.progress); 
+    goalPlain.completed = progress === 100 ? true : false;
     return goalPlain; 
   }));
   
@@ -60,12 +60,12 @@ router.get('/dashboard-goals', withAuth, async (req, res) => {
     const progress = await goal.goalProgress(); 
     const goalPlain = goal.get({ plain: true }); 
     goalPlain.progress = progress; // Assign the calculated progress
+    goalPlain.completed = progress === 100 ? true : false;
     return goalPlain; // Return the modified plain object
   }));
 
   const goals = [...actionableGoals, ...habitualGoals];
-  console.log("Goals:")
-  console.log(goals)
+
   res.render('dashboard-goals', {
     layout: 'alternative',
     goals,
