@@ -48,7 +48,7 @@
         </div>
 
         <div class="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700 my-2">
-          <div data-progress="{{goal.progress}}" class="{{#if goal.completed }}bg-yellow-600{{/if}}{{#unless goal.completed}}bg-green-600{{/unless}} h-2.5 rounded-full" style="width: {{goal.progress}}%"></div>
+          <div data-progress="{{goal.progress}}" class="progress-bar {{#if goal.completed }}bg-yellow-600{{/if}}{{#unless goal.completed}}bg-green-600{{/unless}} h-2.5 rounded-full" style="width:0%;"></div>
           {{#if goal.completed }}<img src="../images/star.png" class="completedStar" alt="" width="30px" height="30px" />{{/if}}
         </div>
         
@@ -133,14 +133,30 @@
                 stagger: 0.2, // Delay of 0.2 seconds between the start of each element's animation
                 ease: 'power1.out' // Smoothing effect for the animation
             });
+            
+            const progressBars = document.querySelectorAll('.progress-bar');
 
+            progressBars.forEach(bar => {
+                const progress = bar.getAttribute('data-progress');
+                bar.style.width = progress + '%';
+            });
+
+            gsap.from('.completedStar', {
+                delay: 1,
+                duration: 1.3, // Duration of each individual animation
+                opacity: 0, // Start fully transparent
+                x: -100, // Start 100 pixels to the left of their natural position
+                stagger: 0.2,
+                rotation: 200, // Delay of 0.2 seconds between the start of each element's animation
+                ease: 'power1.out' // Smoothing effect for the animation
+            });
             const urlParams = new URLSearchParams(window.location.search);
             const successNotification = document.getElementById("successNotification");
             if (urlParams.get('newGoalSuccess') === 'true') {
               successNotification.classList.remove("hidden");
               
               gsap.from('#successNotification', {
-                duration: 0.5, // Duration of each individual animation
+                duration: 1, // Duration of each individual animation
                 opacity: 0, // Start fully transparent
                 y: 100, // Start 100 pixels to the left of their natural position
                 ease: 'power1.out' // Smoothing effect for the animation
