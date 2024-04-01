@@ -109,7 +109,7 @@
     </div>
   </div>
 <!-- Success notification -->
-<div id="successNotification" class="fixed bottom-0 left-0 right-0 bg-green-500 text-white p-4 text-center">
+<div id="successNotification" class="fixed bottom-0 left-0 right-0 bg-green-500 text-white p-4 text-center hidden">
   A new goal has been added successfully!
 </div>
       <script>
@@ -125,8 +125,10 @@
             });
 
             const urlParams = new URLSearchParams(window.location.search);
+            const successNotification = document.getElementById("successNotification");
             if (urlParams.get('newGoalSuccess') === 'true') {
-              const successNotification = document.getElementById("successNotification");
+              successNotification.classList.remove("hidden");
+              
               gsap.from('#successNotification', {
                 duration: 0.5, // Duration of each individual animation
                 opacity: 0, // Start fully transparent
@@ -144,6 +146,7 @@
                 
               }, 3000);
             }
+            
           });
       </script>
       <script src="./js/addEntry.js"></script>
