@@ -54,7 +54,8 @@
           <h3><b>Completion Date: </b>{{format_date goal.due_date}}</h3>
         </div>
         
-        <input data-goal-id="{{goal.id}}" data-goal-type="{{#if goal.direction}}Actionable{{/if}}{{#unless goal.direction}}Habitual{{/unless}}" type="text" class="border-rounded border-gray-400 border rounded p-2 mt-4" placeholder="Add entry or note">
+        <input data-goal-id="{{goal.id}}" data-goal-type="{{#if goal.direction}}Actionable{{/if}}{{#unless goal.direction}}Habitual{{/unless}}" 
+        type="{{#if goal.direction}}number{{/if}}{{#unless goal.direction}}text{{/unless}}" class="border-rounded border-gray-400 border rounded p-2 mt-4" placeholder="Add entry or note">
         <a class="bg-violet-600 text-white font-bold py-2 px-4 rounded mt-4 hover:bg-indigo-600 transition-colors duration-300">Add Entry</a>
     
 
