@@ -108,16 +108,42 @@
     {{/each}}
     </div>
   </div>
-
+<!-- Success notification -->
+<div id="successNotification" class="fixed bottom-0 left-0 right-0 bg-green-500 text-white p-4 text-center">
+  A new goal has been added successfully!
+</div>
       <script>
           document.addEventListener("DOMContentLoaded", function() {
-              gsap.from('.goalCont', {
+
+             
+            gsap.from('.goalCont', {
+                duration: 0.5, // Duration of each individual animation
+                opacity: 0, // Start fully transparent
+                x: -100, // Start 100 pixels to the left of their natural position
+                stagger: 0.2, // Delay of 0.2 seconds between the start of each element's animation
+                ease: 'power1.out' // Smoothing effect for the animation
+            });
+
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.get('newGoalSuccess') === 'true') {
+              const successNotification = document.getElementById("successNotification");
+              gsap.from('#successNotification', {
+                duration: 0.5, // Duration of each individual animation
+                opacity: 0, // Start fully transparent
+                y: 100, // Start 100 pixels to the left of their natural position
+                ease: 'power1.out' // Smoothing effect for the animation
+              });
+              
+              setTimeout(function() {
+                gsap.to('#successNotification', {
                   duration: 0.5, // Duration of each individual animation
                   opacity: 0, // Start fully transparent
-                  x: -100, // Start 100 pixels to the left of their natural position
-                  stagger: 0.2, // Delay of 0.2 seconds between the start of each element's animation
+                  y: 100, // Start 100 pixels to the left of their natural position
                   ease: 'power1.out' // Smoothing effect for the animation
-              });
+                });
+                
+              }, 3000);
+            }
           });
       </script>
       <script src="./js/addEntry.js"></script>
