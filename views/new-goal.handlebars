@@ -237,7 +237,17 @@
 
     function handleFilesFromInput(e) {
       let files = e.target.files;
+       if (!files[0].type.startsWith('image/')){ return }
       fileUploaded = files;
+
+      let file = fileUploaded[0];
+
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onloadend = () => {
+        dropArea.style.backgroundImage = `url('${reader.result}')`;
+       // Optionally clear the drop area text
+      };
     }
 
     // General function to handle files
