@@ -1,7 +1,19 @@
 const {Model, DataTypes} = require('sequelize');
 const sequelize = require('../config/connection');
 
-class ActionableGoal extends Model {}
+class ActionableGoal extends Model { // Define a method to calculate the sum of all related GoalEntry quantities
+   
+    async goalProgress() {
+       
+        const sum = await sequelize.models.actionableGoalEntry.sum('quantity', {
+            where: { actionable_goal_id: this.id } 
+        });
+
+        let percent = (sum/this.goal_amount)*100;
+        percent = percent > 100 ? 100 : percent;
+        return percent || 0; 
+    }
+}
 
 ActionableGoal.init(
     {
