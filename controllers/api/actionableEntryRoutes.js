@@ -5,6 +5,8 @@ const { ActionableGoal, ActionableGoalEntry } = require('../../models');
 // Import validator from module
 var validator = require('validator');
 
+// Import withAuth to check if user already logged in
+const withAuth = require('../../utils/auth');
 
 //Ben PUT
 router.put('/:id', async (req, res) => {
@@ -89,17 +91,16 @@ router.post('/', async (req, res) => {
 });
 
 
-router.delete('/:id', async (req, res) => {
+router.delete('/:id', withAuth, async (req, res) => {
 
     // Check ID is an INTEGER
-    if(isNaN(parseInt(req.params.id))){
+    if ( !validator.isNumeric(req.params.id) ) {
         return res.status(400).json({ message: "ID not an INTEGER"});
     }
 
     try {
-
                 
-        //Checking if there is an AGE that belongs to this user
+        //Checking if there is an entry that belongs to this user
         const entry = await ActionableGoalEntry.findByPk(req.params.id, {
             include: [{
               model: ActionableGoal,

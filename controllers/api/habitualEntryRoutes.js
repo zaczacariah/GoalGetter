@@ -5,6 +5,9 @@ const { HabitualGoalEntry, HabitualGoal} = require('../../models');
 // Import validator from module
 var validator = require('validator');
 
+// Import withAuth to check if user already logged in
+const withAuth = require('../../utils/auth');
+
 // update an entry by its id
 // req.body looks like below:
 // {
@@ -89,18 +92,17 @@ router.post('/', async (req, res) => {
 });
 
 // delete an entry by its id
-router.delete('/:id', async (req, res) => {
+router.delete('/:id', withAuth, async (req, res) => {
 
     // Check if id is an INTEGER
-    if(isNaN(parseInt(req.params.id))){
+    if(!validator.isNumeric(req.params.id)) {
         return res.status(400).send("ID not an INTEGER");
     };
 
     try {
                 
-        // Check if the goal exists and belongs to the user
-         //Checking if there is an HG Entry that belongs to this user
-         const entry = await HabitualGoalEntry.findByPk(req.params.id, {
+        // Check if the entry exists and belongs to the user
+        const entry = await HabitualGoalEntry.findByPk(req.params.id, {
             include: [{
                 model: HabitualGoal,
                 attributes: [],

@@ -71,7 +71,7 @@
       <hr class="border-neutral-500">
 
       <!--View Entries Button-->
-        <details class="bg-white shadow rounded group mt-4">
+        <details class="view-entries bg-white shadow rounded group mt-4">
           <summary class="list-none flex flex-wrap items-center cursor-pointer">
             <h3 class="flex flex-1 p-4 font-bold text-black">View Entries</h3>
             <div class="flex w-10 items-center justify-center">
@@ -88,8 +88,13 @@
                   <p class="text-xs text-neutral-500">{{format_date entry.date_created}}</p>
                 </div>
           
-                <div class="flex flex-row mt-2">
+                <div class="flex flex-row justify-between mt-2">
                   <p class="text-start font-bold">{{entry.quantity}}</p>
+                  <button type="button" data-goal-type="Actionable" data-entry-id="{{entry.id}}" class="bg-white rounded-md p-2 inline-flex items-center justify-center text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500">
+                    <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                  </button>
                 </div>
               </div>
             </div>
@@ -104,8 +109,13 @@
                   <p class="text-xs text-neutral-500">{{format_date entry.date_created}}</p>
                 </div>
           
-                <div class="flex flex-row mt-2">
+                <div class="flex flex-row justify-between mt-2">
                   <p class="text-start font-bold">{{entry.notes}}</p>
+                  <button type="button" data-goal-type="Habitual" data-entry-id="{{entry.id}}" class="bg-white rounded-md p-2 inline-flex items-center justify-center text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500">
+                    <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                  </button>
                 </div>
               </div>
             </div>
@@ -176,3 +186,4 @@
           });
       </script>
       <script src="./js/addEntry.js"></script>
+      <script src="./js/deleteEntry.js"></script>
