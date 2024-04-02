@@ -41,15 +41,16 @@ This project is not licensed. For more information regarding licences, please vi
 ## Questions
 
 Please feel free to contact the development team via our GitHub or email links below for any questions associated with this application:
-Ben Taylor:
+
+Ben Taylor:  
 GitHub: [github](https://github.com/mattkellyirl)  
 Email: email@gmail.com
 
-Dinh Nguyen:
+Dinh Nguyen:  
 GitHub: [github](https://github.com/mattkellyirl)  
 Email: email@gmail.com
 
-Badrul Borhandudin:
+Badrul Borhandudin:  
 GitHub: [github](https://github.com/mattkellyirl)  
 Email: email@gmail.com
 
