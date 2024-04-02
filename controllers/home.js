@@ -18,6 +18,74 @@ router.get('/', (req, res) => {
   return res.render('homepage');
 });
 
+router.get('/overview', async (req, res) => {
+
+  let completed = 0;
+  let uncompleted = 0;
+  let habitual = 0;
+  let actionable = 0;
+
+  let actionableGoals = await ActionableGoal.findAll({
+    where: {
+      user_id: req.session.user_id // Additional filtering condition
+    },
+  });
+
+
+  actionableGoals = await Promise.all(actionableGoals.map(async (goal) => {
+    actionable++;
+    const progress = await goal.goalProgress(); 
+    const goalPlain = goal.get({ plain: true });
+    goalPlain.completed = progress === 100 ? true : false;
+    if(goalPlain.completed){
+      completed++;
+    } else {
+      uncompleted++;
+    }
+   
+    return goalPlain; 
+  }));
+
+  let habitualGoals = await HabitualGoal.findAll({
+    where: {
+      user_id: req.session.user_id // Additional filtering condition
+    },
+  });
+
+
+
+  habitualGoals = await Promise.all(habitualGoals.map(async (goal) => {
+    habitual++;
+    const progress = await goal.goalProgress(); 
+    const goalPlain = goal.get({ plain: true }); 
+    goalPlain.completed = progress === 100 ? true : false;
+    if(goalPlain.completed){
+      completed++;
+    } else {
+      uncompleted++;
+    }
+    return goalPlain; // Return the modified plain object
+  }));
+
+
+
+  if(!actionableGoals && !habitualGoals){
+      const message = !actionableGoals ? "No Actionable Goals Found" : "No Habitual Goals Found";
+      res.status(404).json({ message });
+      return;
+  }
+
+
+
+  return res.render('overview', {
+    layout: 'alternative',
+    completed,
+    uncompleted,
+    habitual,
+    actionable
+  })
+})
+
 router.get('/dashboard-goals', withAuth, async (req, res) => {
   //Actionable
   let actionableGoals = await ActionableGoal.findAll({
@@ -41,7 +109,7 @@ router.get('/dashboard-goals', withAuth, async (req, res) => {
     return goalPlain; 
   }));
   
-  console.log(actionableGoals)
+
   //Habitual
   let habitualGoals = await HabitualGoal.findAll({
     include: [
