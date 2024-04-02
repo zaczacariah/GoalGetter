@@ -1,0 +1,79 @@
+<div class="flex flex-col lg:flex-row justify-between items-center mb-16">
+  <div class="text-center lg:text-start">
+      <h1 class="text-3xl font-bold">My Goal Overview</h1>
+      <h2 class="text-neutral-500">Welcome to Overview. See how your completed task stack up against your uncompleted task. </h2>
+  </div>
+</div>
+<div class='justify-center lg:justify-evenly flex flex-wrap gap-6 mt-16'>
+
+  <div class='flex flex-col mb-16'>
+    <div class="w-200 h-200 rounded ">
+      
+      <canvas id="chart"></canvas>
+    </div>
+  </div>
+  <div class='flex flex-col mb-16'>
+    <div class="w-200 h-400 rounded">
+      
+      <canvas id="barChart" height="300px"></canvas>
+    </div>
+  </div>
+</div>
+
+<script>
+  const pieData = {
+  labels: [
+    'Completed Goals',
+    'Uncompleted Goals'
+  ],
+  datasets: [{
+    label: 'My First Dataset',
+    data: [{{completed}}, {{uncompleted}}],
+    backgroundColor: [
+      '#7c3aed',
+      '#1ed8ef',
+    ],
+    hoverOffset: 4
+    }]
+  };
+
+   const pieConfig = {
+    type: 'doughnut',
+    data: pieData,
+  };
+
+
+  const barData = {
+    labels: [
+    "Actionable",
+    "Habitual"
+    ],
+    datasets: [{
+      label: "Actionable vs Habitual",
+      data: [{{actionable}}, {{habitual}}],
+      backgroundColor: [
+        '#7c3aed',
+        '#1ed8ef',
+      ]
+    }]
+  };
+
+  const barConfig = {
+    type: 'bar',
+    data: barData,
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      }
+    },
+  };
+
+  document.addEventListener("DOMContentLoaded", function() {
+   
+  const pieChart = new Chart(document.getElementById('chart'), pieConfig)
+  const barChart = new Chart(document.getElementById('barChart'), barConfig)
+
+  });
+</script>
