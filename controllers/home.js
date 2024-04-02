@@ -18,7 +18,7 @@ router.get('/', (req, res) => {
   return res.render('homepage');
 });
 
-router.get('/overview', async (req, res) => {
+router.get('/overview', withAuth, async (req, res) => {
 
   let completed = 0;
   let uncompleted = 0;
