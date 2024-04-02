@@ -4,7 +4,7 @@
 
 ## Description
 
-Introducing GoalGetter, your personal success sidekick! Climb mountains and conquer milestones with this goal setting application built by University of Adelaide students Ben Taylor, Dinh Nguyen, Badrul Borhanudin and Matt Kelly.
+Introducing GoalGetter, your personal success sidekick! Climb mountains and conquer milestones with this goal setting application built by University of Adelaide Coding Bootcamp students Ben Taylor, Dinh Nguyen, Badrul Borhanudin and Matt Kelly.
 
 ## Table of Contents
 
