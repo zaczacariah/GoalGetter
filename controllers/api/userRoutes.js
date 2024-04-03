@@ -5,7 +5,6 @@ const { User } = require('../../models');
 // Import validator from module
 var validator = require('validator');
 
-
 // If a POST request is made to /api/user, a new user is created. The user id and logged in state is saved to the session within the request object.
 router.post('/', async (req, res) => {
   const user = {};
@@ -16,20 +15,24 @@ router.post('/', async (req, res) => {
     return;
   } else {
     user['email'] = req.body.username;
-  };
+  }
 
   // check if password is strong
-  if (!validator.isStrongPassword(req.body.password, {
-    minLength: 8,
-    minUppercase: 0,
-    minNumbers: 1,
-    minSymbols: 0} )) {
-    res.statusMessage = 'The password should have at least 8 charaters including number.';
+  if (
+    !validator.isStrongPassword(req.body.password, {
+      minLength: 8,
+      minUppercase: 0,
+      minNumbers: 1,
+      minSymbols: 0,
+    })
+  ) {
+    res.statusMessage =
+      'The password should have at least 8 characters including number.';
     res.status(400).end();
     return;
   } else {
     user['password'] = req.body.password;
-  };
+  }
 
   // check if name is not empty
   if (validator.isEmpty(req.body.name)) {
@@ -38,7 +41,7 @@ router.post('/', async (req, res) => {
     return;
   } else {
     user['name'] = req.body.name;
-  };
+  }
 
   try {
     const userData = await User.create(user);
@@ -59,12 +62,12 @@ router.post('/', async (req, res) => {
 router.post('/login', async (req, res) => {
   console.log(req.body.email);
   if (!validator.isEmail(req.body.email)) {
-    res.status(400).json({ message: 'Please input valid email.'});
+    res.status(400).json({ message: 'Please input valid email.' });
     return;
-  };
+  }
   try {
     const userData = await User.findOne({ where: { email: req.body.email } });
-    
+
     if (!userData) {
       res
         .status(400)
@@ -84,10 +87,9 @@ router.post('/login', async (req, res) => {
     req.session.save(() => {
       req.session.user_id = userData.id;
       req.session.logged_in = true;
-      
+
       res.json({ user: userData, message: 'You are now logged in!' });
     });
-
   } catch (err) {
     res.status(400).json(err);
   }
@@ -103,7 +105,5 @@ router.post('/logout', (req, res) => {
     res.status(404).end();
   }
 });
-
-
 
 module.exports = router;

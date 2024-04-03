@@ -1,63 +1,36 @@
-
-
 <!-- Content -->
-
-
-  <!--Title + Add Goal-->
 <div class="flex flex-col lg:flex-row justify-between items-center mb-16">
   <div class="text-center lg:text-start">
-      <h1 class="text-3xl font-bold">My Goal Dashboard</h1>
-      <h2 class="text-neutral-500">Welcome to your dashboard. Here you can view and add your goals.</h2>
+    <h1 class="text-3xl font-bold">My Goal Dashboard</h1>
+    <h2 class="text-neutral-500">Welcome to your dashboard. Here you can view and add your goals.</h2>
   </div>
 
-  <!--Add Goal Button-->
+  <!-- Add Goal Button -->
   <div class="mt-6 lg:mt-0">
     <a href="../goals/new" class="bg-violet-600 text-white font-bold py-2 px-4 rounded hover:bg-indigo-600 transition-colors duration-300">Add Goal</a>
   </div>
 </div>
 
-<!--My Goals-->
+<!-- My Goals -->
 <div class="text-center lg:text-start">
   <h1 class="text-2xl font-bold mb-4">My Goals</h1>
 
-  <!--Goal #1-->
+  <!-- Goal #1 -->
   <div class="goals justify-center lg:justify-start flex flex-wrap gap-6">
-    {{!-- <div class="flex flex-col goalCont">
-      <div class="w-64 h-64 bg-gray-400 rounded"></div>
-
-      <div class="text-start mt-4">
-        <h3><b>Goal: </b>Enter Goal</h3>
-        <h3><b>Type: </b> Actionable / Habitual</h3>
-        <h3><b>Unit: </b> Enter Unit</h3>
-        <h3><b>Completion Date: </b> Enter Date</h3>
-      </div>
-    
-      <input type="text" class="border-rounded border-gray-400 border rounded p-2 mt-4" placeholder="Add entry or note">
-      <a href="#" class="bg-violet-600 text-white font-bold py-2 px-4 rounded mt-4 hover:bg-indigo-600 transition-colors duration-300">Add Entry</a>
-    </div> --}}
     {{#each goals as |goal|}}
     <div class="justify-center lg:justify-start flex flex-wrap gap-6 goalCont">
-      
       <div class="flex flex-col max-w-64 mb-16">
-        
-    
-        
         <div class="w-64 h-64 bg-gray-400 rounded goalImg" style="background-image: url('{{goal.imgUrl}}')">
           {{#if goal.completed }} <div style="height:100%; width:100%; background: gold; opacity:0.8;"></div>{{/if}}
-         
         </div>
-
         <div class="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700 my-2">
           <div data-progress="{{goal.progress}}" class="progress-bar {{#if goal.completed }}bg-yellow-600{{/if}}{{#unless goal.completed}}bg-green-600{{/unless}} h-2.5 rounded-full" style="width:0%;"></div>
           {{#if goal.completed }}<img src="../images/star.png" class="completedStar" alt="" width="30px" height="30px" />{{/if}}
         </div>
-        
         <div class="text-start mt-4">
           <h3><b>Title: </b>{{ goal.name}}</h3>
           <h3><b>Type: </b> {{#if goal.direction}}Actionable{{/if}} 
                           {{#unless goal.direction}}Habitual{{/unless}}</h3>
-                          
-                          
           <h3><b>Goal: </b>{{ goal.goal_amount}}</h3>
           {{#if goal.direction}}
           <h3><b>Unit: </b> {{goal.unit}}</h3>
@@ -71,9 +44,7 @@
         <a class="bg-violet-600 text-white font-bold py-2 px-4 rounded mt-4 hover:bg-indigo-600 transition-colors duration-300">Add Entry</a>
         {{/unless}}
 
-      
-
-      <!--View Entries Button-->
+        <!-- View Entries Button -->
         <details class="bg-white shadow rounded group mt-4">
           <summary class="list-none flex flex-wrap items-center cursor-pointer">
             <h3 class="flex flex-1 p-4 font-bold text-black">View Entries</h3>
@@ -81,101 +52,100 @@
               <div class="border-8 border-transparent border-l-black ml-2 group-open:rotate-90 transition-transform origin-left"></div>
             </div>
           </summary>
-            <!--Entries-->
-            {{#if goal.direction }}
-            {{#each actionableGoalEntries as |entry|}}
-            <div class="m-2">
-              <div class="bg-neutral-100 text-black py-2 px-4 rounded">
-                <div class="flex flex-row justify-between">
-                  <p class="text-xs font-bold text-neutral-500">{{goal.unit}}</p>
-                  <p class="text-xs text-neutral-500">{{format_date entry.date_created}}</p>
-                </div>
-          
-                <div class="flex flex-row mt-2">
-                  <p class="text-start font-bold">{{entry.quantity}}</p>
-                </div>
+          <!-- Entries -->
+          {{#if goal.direction }}
+          {{#each actionableGoalEntries as |entry|}}
+          <div class="m-2">
+            <div class="bg-neutral-100 text-black py-2 px-4 rounded">
+              <div class="flex flex-row justify-between">
+                <p class="text-xs font-bold text-neutral-500">{{goal.unit}}</p>
+                <p class="text-xs text-neutral-500">{{format_date entry.date_created}}</p>
               </div>
-            </div>
-            {{/each}}
-            {{/if}}
-            {{#unless goal.direction }}
-            {{#each habitualGoalEntries as |entry|}}
-            <div class="m-2">
-              <div class="bg-neutral-100 text-black py-2 px-4 rounded">
-                <div class="flex flex-row justify-between">
-                  <p class="text-xs font-bold text-neutral-500">+1 Step</p>
-                  <p class="text-xs text-neutral-500">{{format_date entry.date_created}}</p>
-                </div>
-          
-                <div class="flex flex-row mt-2">
-                  <p class="text-start font-bold">{{entry.notes}}</p>
-                </div>
-              </div>
-            </div>
-            {{/each}}
-            {{/unless}}
-        </details>
 
+              <div class="flex flex-row mt-2">
+                <p class="text-start font-bold">{{entry.quantity}}</p>
+              </div>
+            </div>
+          </div>
+          {{/each}}
+          {{/if}}
+          {{#unless goal.direction }}
+          {{#each habitualGoalEntries as |entry|}}
+          <div class="m-2">
+            <div class="bg-neutral-100 text-black py-2 px-4 rounded">
+              <div class="flex flex-row justify-between">
+                <p class="text-xs font-bold text-neutral-500">+1 Step</p>
+                <p class="text-xs text-neutral-500">{{format_date entry.date_created}}</p>
+              </div>
+              <div class="flex flex-row mt-2">
+                <p class="text-start font-bold">{{entry.notes}}</p>
+              </div>
+            </div>
+          </div>
+          {{/each}}
+          {{/unless}}
+        </details>
       </div>
     </div>
     {{/each}}
-    </div>
   </div>
+</div>
+
 <!-- Success notification -->
 <div id="successNotification" class="fixed bottom-0 left-0 right-0 bg-green-500 text-white p-4 text-center hidden">
   A new goal has been added successfully!
 </div>
-      <script>
-          document.addEventListener("DOMContentLoaded", function() {
 
-             
-            gsap.from('.goalCont', {
-                duration: 0.5, // Duration of each individual animation
-                opacity: 0, // Start fully transparent
-                x: -100, // Start 100 pixels to the left of their natural position
-                stagger: 0.2, // Delay of 0.2 seconds between the start of each element's animation
-                ease: 'power1.out' // Smoothing effect for the animation
-            });
-            
-            const progressBars = document.querySelectorAll('.progress-bar');
+<script>
+  document.addEventListener("DOMContentLoaded", function() {       
+    gsap.from('.goalCont', {
+      duration: 0.5, // Duration of each individual animation
+      opacity: 0, // Start fully transparent
+      x: -100, // Start 100 pixels to the left of their natural position
+      stagger: 0.2, // Delay of 0.2 seconds between the start of each element's animation
+      ease: 'power1.out' // Smoothing effect for the animation
+    });
 
-            progressBars.forEach(bar => {
-                const progress = bar.getAttribute('data-progress');
-                bar.style.width = progress + '%';
-            });
+    const progressBars = document.querySelectorAll('.progress-bar');
 
-            gsap.from('.completedStar', {
-                delay: 1,
-                duration: 1.3, // Duration of each individual animation
-                opacity: 0, // Start fully transparent
-                x: -100, // Start 100 pixels to the left of their natural position
-                stagger: 0.2,
-                rotation: 200, // Delay of 0.2 seconds between the start of each element's animation
-                ease: 'power1.out' // Smoothing effect for the animation
-            });
-            const urlParams = new URLSearchParams(window.location.search);
-            const successNotification = document.getElementById("successNotification");
-            if (urlParams.get('newGoalSuccess') === 'true') {
-              successNotification.classList.remove("hidden");
-              
-              gsap.from('#successNotification', {
-                duration: 1, // Duration of each individual animation
-                opacity: 0, // Start fully transparent
-                y: 100, // Start 100 pixels to the left of their natural position
-                ease: 'power1.out' // Smoothing effect for the animation
-              });
-              
-              setTimeout(function() {
-                gsap.to('#successNotification', {
-                  duration: 0.5, // Duration of each individual animation
-                  opacity: 0, // Start fully transparent
-                  y: 100, // Start 100 pixels to the left of their natural position
-                  ease: 'power1.out' // Smoothing effect for the animation
-                });
-                
-              }, 3000);
-            }
-            
-          });
-      </script>
-      <script src="./js/addEntry.js"></script>
+    progressBars.forEach(bar => {
+      const progress = bar.getAttribute('data-progress');
+      bar.style.width = progress + '%';
+    });
+
+    gsap.from('.completedStar', {
+      delay: 1,
+      duration: 1.3, // Duration of each individual animation
+      opacity: 0, // Start fully transparent
+      x: -100, // Start 100 pixels to the left of their natural position
+      stagger: 0.2,
+      rotation: 200, // Delay of 0.2 seconds between the start of each element's animation
+      ease: 'power1.out' // Smoothing effect for the animation
+    });
+
+    const urlParams = new URLSearchParams(window.location.search);
+    const successNotification = document.getElementById("successNotification");
+    if (urlParams.get('newGoalSuccess') === 'true') {
+      successNotification.classList.remove("hidden");
+
+      gsap.from('#successNotification', {
+        duration: 1, // Duration of each individual animation
+        opacity: 0, // Start fully transparent
+        y: 100, // Start 100 pixels to the left of their natural position
+        ease: 'power1.out' // Smoothing effect for the animation
+      });
+
+      setTimeout(function() {
+        gsap.to('#successNotification', {
+          duration: 0.5, // Duration of each individual animation
+          opacity: 0, // Start fully transparent
+          y: 100, // Start 100 pixels to the left of their natural position
+          ease: 'power1.out' // Smoothing effect for the animation
+        });
+
+      }, 3000);
+    }
+
+  });
+</script>
+<script src="./js/addEntry.js"></script>

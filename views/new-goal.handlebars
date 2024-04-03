@@ -2,6 +2,7 @@
 <div class='flex-grow p-6'>
   <div class='flex flex-col md:flex-row'>
     <div class='md:w-1/3 md:pr-4 mb-4'>
+
       <!-- First column content -->
       <div>
         <h2 class='text-xl font-bold mb-4'>Add New Goal</h2>
@@ -11,52 +12,25 @@
         <br />
         <form id="newGoalForm" enctype="multipart/form-data">
           <div class="mb-4">
-                    <div id="imageUpload" class="w-64 h-64 bg-gray-400 rounded upload"></div>
-                    <input type="file" id="fileElem" style="display:none">
-                </div>
-          <div class='mb-4'>
-            <label
-           
-              for='goal-title'
-              class='block text-sm font-medium text-gray-700'
-            >What is your goal?</label>
-            <input
-              type='text'
-              id='goal-title'
-              name='goal-title'
-              class='mt-1 p-2 block w-full border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500'
-              placeholder='Enter the name of your goal'
-            />
+            <div id="imageUpload" class="w-64 h-64 bg-gray-400 rounded upload"></div>
+            <input type="file" id="fileElem" style="display:none">
           </div>
           <div class='mb-4'>
-            <label
-              for='goal-type'
-              class='block text-sm font-medium text-gray-700'
-            >What is your goal type?</label>
-            <select
-              id='goal-type'
-              name='goal-type'
-              class='mt-1 p-2 block w-full border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500'
-            >
-              <option value='' disabled selected>
-                Choose your goal type
-              </option>
+            <label for='goal-title' class='block text-sm font-medium text-gray-700'>What is your goal?</label>
+            <input type='text' id='goal-title' name='goal-title' class='mt-1 p-2 block w-full border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500' placeholder='Enter the name of your goal'/>
+          </div>
+          <div class='mb-4'>
+            <label for='goal-type' class='block text-sm font-medium text-gray-700'>What is your goal type?</label>
+            <select id='goal-type' name='goal-type' class='mt-1 p-2 block w-full border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500'>
+              <option value='' disabled selected>Choose your goal type</option>
               <option value='actionable'>Actionable</option>
               <option value='habitual'>Habitual</option>
             </select>
           </div>
           <div class='mb-4' id="unitField" style="display:none;">
-            <label for='unit' class='block text-sm font-medium text-gray-700'>
-              Unit (actionable goals only)
-            </label>
-            <select
-              id='unit'
-              name='unit'
-              class='mt-1 p-2 block w-full border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500'
-            >
-              <option value='' disabled selected>
-                Choose your unit type
-              </option>
+            <label for='unit' class='block text-sm font-medium text-gray-700'>Unit (actionable goals only)</label>
+            <select id='unit' name='unit' class='mt-1 p-2 block w-full border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500'>
+              <option value='' disabled selected>Choose your unit type</option>
               <option value='$'>Dollars ($)</option>
               <option value='Kg'>Kilograms (Kg)</option>
               <option value='Steps'>Steps</option>
@@ -64,102 +38,50 @@
             </select>
           </div>
           <div class='mb-4' id="quantityField">
-            <label
-              for='quantity'
-              class='block text-sm font-medium text-gray-700'
-            >Goal Amount</label>
-            <input
-              type='number'
-              id='quantity'
-              name='quantity'
-              class='mt-1 p-2 block w-full border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500'
-              placeholder='Enter the goal amount'
-            />
+            <label for='quantity' class='block text-sm font-medium text-gray-700'>Goal Amount</label>
+            <input type='number' id='quantity' name='quantity' class='mt-1 p-2 block w-full border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500' placeholder='Enter the goal amount'/>
           </div>
           <div class='mb-4' id="directionField" style="display:none;">
-            <label for='direction' class='block text-sm font-medium text-gray-700'>
-              Direction (lose or gain)
-            </label>
-            <select
-              id='direction'
-              name='direction'
-              class='mt-1 p-2 block w-full border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500'
-            >
-              <option value='' disabled selected>
-                Choose your direction
-              </option>
+            <label for='direction' class='block text-sm font-medium text-gray-700'>Direction (lose or gain)</label>
+            <select id='direction' name='direction' class='mt-1 p-2 block w-full border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500'>
+              <option value='' disabled selected>Choose your direction</option>
               <option value='ASC'>Increase</option>
               <option value='DESC'>Decrease</option>
             </select>
           </div>
           <div class='mb-4'>
-            <label
-              for='due-date'
-              class='block text-sm font-medium text-gray-700'
-            >Completion Due Date (actionable goals only)</label>
-            <input
-              type='date'
-              id='due-date'
-              name='due-date'
-              class='mt-1 p-2 block w-full border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500'
-            />
+            <label for='due-date' class='block text-sm font-medium text-gray-700'>Completion Due Date (actionable goals only)</label>
+            <input type='date' id='due-date' name='due-date' class='mt-1 p-2 block w-full border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500'/>
           </div>
           <div>
-            <button
-              type='submit'
-              class='bg-indigo-600 text-white font-semibold py-2 px-4 rounded-md hover:bg-indigo-700'
-            >
-              Submit
-            </button>
+            <button type='submit' class='bg-indigo-600 text-white font-semibold py-2 px-4 rounded-md hover:bg-indigo-700'>Submit</button>
           </div>
         </form>
       </div>
     </div>
     <div class='md:w-2/3 md:pl-4 mb-4'>
+    
       <!-- Second column content -->
       <div>
-        <h2 class='text-xl font-bold mb-4 text-gray-400'>
-          Actionable vs Habitual Goals
-        </h2>
+        <h2 class='text-xl font-bold mb-4 text-gray-400'>Actionable vs Habitual Goals</h2>
         <p class='mb-4 text-gray-400 text-sm'>
-          Not sure what category your goal falls under? Read the information
-          below for guidance.
+          Not sure what category your goal falls under? Read the information below for guidance.
         </p>
-        <h3 class='font-bold mb-2 text-gray-400'>
-          What is an ‘actionable goal’?
-        </h3>
+        <h3 class='font-bold mb-2 text-gray-400'>What is an ‘actionable goal’?</h3>
         <p class='mb-4 text-gray-400 text-sm'>
-          An actionable goal is a type of goal that is specific, measurable,
-          achievable, relevant, and time-bound. Most commonly, actionable goals
-          are one-time achievements or milestones. They are well defined, clear
-          objectives with, most importantly, a deadline. Actionable goals are a
-          great way to define what you want to achieve and give yourself a
-          deadline to work with.
+          An actionable goal is a type of goal that is specific, measurable, achievable, relevant, and time-bound. Most commonly, actionable goals are one-time achievements or milestones. They are well defined, clear objectives with, most importantly, a deadline. Actionable goals are a great way to define what you want to achieve and give yourself a deadline to work with.
         </p>
-        <h3 class='font-bold mb-2 text-gray-400'>
-          What is an example of an ‘actionable goal’?
-        </h3>
+        <h3 class='font-bold mb-2 text-gray-400'>What is an example of an ‘actionable goal’?</h3>
         <ol class='mb-4 list-decimal ml-4 text-gray-400 text-sm'>
           <li>Save $10,000 for a new car.</li>
           <li>Lose 15kgs of weight.</li>
           <li>Complete my university course.</li>
         </ol>
-        <h3 class='font-bold mb-2 text-gray-400'>
-          What is a ‘habitual goal’?
-        </h3>
+        <h3 class='font-bold mb-2 text-gray-400'>What is a ‘habitual goal’?</h3>
         <p class='mb-4 text-gray-400 text-sm'>
-          What is a ‘habitual goal’? A habitual goal is type of goal that
-          focuses on establishing or changing habits over time. Unlike
-          actionable goals that are commonly one time achievements or
-          milestones, habitual goals require consistent behaviour and effort to
-          build a new yourself a new routine. Habitual goals are essential for
-          fostering personal growth and self discipline. They require
-          consistency, patience and perserverance to build new habits or break
-          old ones.
+          What is a ‘habitual goal’? A habitual goal is type of goal that focuses on establishing or changing habits over time. Unlike actionable goals that are commonly one time achievements or milestones, habitual goals require consistent behaviour and effort to build a new yourself a new routine. Habitual goals are essential for fostering personal growth and self discipline. They require consistency, patience and perserverance to build new habits or break old ones.
         </p>
-        <h3 class='font-bold mb-2 text-gray-400'>
-          What is an example of a 'habitual goal'?
-        </h3>
+        <h3 class='font-bold mb-2 text-gray-400'>What is an example of a 'habitual goal'?</h3>
         <ol class='list-decimal ml-4 text-gray-400 text-sm'>
           <li>Exercising for 30 minutes each day.</li>
           <li>Meditating for 10 minutes every morning.</li>
@@ -170,8 +92,6 @@
   </div>
 </div>
 
-
-
 <script>
   document.addEventListener('DOMContentLoaded', (event) => {
     let dropArea = document.getElementById('imageUpload');
@@ -180,11 +100,9 @@
     let goalTypeField = document.getElementById('goal-type');
     let unitField = document.getElementById('unitField');
     let directionField = document.getElementById('directionField');
-   
 
     goalTypeField.addEventListener('change', function(e){
       const value = goalTypeField.value;
-      
       if(value === "actionable"){
         [unitField, directionField].forEach((item) => item.style.display = "block");
       } else {
@@ -215,7 +133,6 @@
     function handleDrop(e) {
       let dt = e.dataTransfer;
       let files = dt.files;
-      
       if (!files[0].type.startsWith('image/')){ return }
       fileUploaded = files;
 
@@ -237,7 +154,7 @@
 
     function handleFilesFromInput(e) {
       let files = e.target.files;
-       if (!files[0].type.startsWith('image/')){ return }
+      if (!files[0].type.startsWith('image/')){ return }
       fileUploaded = files;
 
       let file = fileUploaded[0];
@@ -249,9 +166,5 @@
        // Optionally clear the drop area text
       };
     }
-
-    // General function to handle files
-    //function handleFiles(files) {
-    //}
   });
 </script>

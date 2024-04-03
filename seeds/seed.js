@@ -1,12 +1,17 @@
 const sequelize = require('../config/connection');
-const { User, ActionableGoal, ActionableGoalEntry, HabitualGoal, HabitualGoalEntry } = require('../models');
+const {
+  User,
+  ActionableGoal,
+  ActionableGoalEntry,
+  HabitualGoal,
+  HabitualGoalEntry,
+} = require('../models');
 
 const userData = require('./userData.json');
 const actionableGoalData = require('./actionableGoals.json');
 const actionableGoalDataEntries = require('./actionableGoalEntries.json');
 const habitualGoalData = require('./habitualGoals.json');
 const habitualGoalDataEntries = require('./habitualGoalEntries.json');
-
 
 const seedDatabase = async () => {
   await sequelize.sync({ force: true });
@@ -15,9 +20,8 @@ const seedDatabase = async () => {
     individualHooks: true,
     returning: true,
   });
-  // user_id: users[Math.floor(Math.random() * users.length)].id,
-  
-  const enrichedActionableGoalData = actionableGoalData.map(goal => ({
+
+  const enrichedActionableGoalData = actionableGoalData.map((goal) => ({
     ...goal,
     user_id: users[Math.floor(Math.random() * users.length)].id,
   }));
@@ -26,7 +30,7 @@ const seedDatabase = async () => {
 
   await ActionableGoalEntry.bulkCreate(actionableGoalDataEntries);
 
-  const enrichedHabitualGoalData = habitualGoalData.map(goal => ({
+  const enrichedHabitualGoalData = habitualGoalData.map((goal) => ({
     ...goal,
     user_id: users[Math.floor(Math.random() * users.length)].id,
   }));
@@ -34,10 +38,6 @@ const seedDatabase = async () => {
   await HabitualGoal.bulkCreate(enrichedHabitualGoalData);
 
   await HabitualGoalEntry.bulkCreate(habitualGoalDataEntries);
-
-
-  
-  
 
   process.exit(0);
 };
