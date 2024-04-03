@@ -18,6 +18,72 @@ router.get('/', (req, res) => {
   return res.render('homepage');
 });
 
+router.get('/overview', withAuth, async (req, res) => {
+  let completed = 0;
+  let uncompleted = 0;
+  let habitual = 0;
+  let actionable = 0;
+
+  let actionableGoals = await ActionableGoal.findAll({
+    where: {
+      user_id: req.session.user_id, // Additional filtering condition
+    },
+  });
+
+  actionableGoals = await Promise.all(
+    actionableGoals.map(async (goal) => {
+      actionable++;
+      const progress = await goal.goalProgress();
+      const goalPlain = goal.get({ plain: true });
+      goalPlain.completed = progress === 100 ? true : false;
+      if (goalPlain.completed) {
+        completed++;
+      } else {
+        uncompleted++;
+      }
+
+      return goalPlain;
+    })
+  );
+
+  let habitualGoals = await HabitualGoal.findAll({
+    where: {
+      user_id: req.session.user_id, // Additional filtering condition
+    },
+  });
+
+  habitualGoals = await Promise.all(
+    habitualGoals.map(async (goal) => {
+      habitual++;
+      const progress = await goal.goalProgress();
+      const goalPlain = goal.get({ plain: true });
+      goalPlain.completed = progress === 100 ? true : false;
+      if (goalPlain.completed) {
+        completed++;
+      } else {
+        uncompleted++;
+      }
+      return goalPlain; // Return the modified plain object
+    })
+  );
+
+  if (!actionableGoals && !habitualGoals) {
+    const message = !actionableGoals
+      ? 'No Actionable Goals Found'
+      : 'No Habitual Goals Found';
+    res.status(404).json({ message });
+    return;
+  }
+
+  return res.render('overview', {
+    layout: 'alternative',
+    completed,
+    uncompleted,
+    habitual,
+    actionable,
+  });
+});
+
 router.get('/dashboard-goals', withAuth, async (req, res) => {
   //Actionable
   let actionableGoals = await ActionableGoal.findAll({
@@ -33,15 +99,16 @@ router.get('/dashboard-goals', withAuth, async (req, res) => {
     },
   });
 
-  actionableGoals = await Promise.all(actionableGoals.map(async (goal) => {
-    const progress = await goal.goalProgress(); 
-    const goalPlain = goal.get({ plain: true });
-    goalPlain.progress = progress; // Assign the calculated progress
-    goalPlain.completed = progress === 100 ? true : false;
-    return goalPlain; 
-  }));
-  
-  console.log(actionableGoals)
+  actionableGoals = await Promise.all(
+    actionableGoals.map(async (goal) => {
+      const progress = await goal.goalProgress();
+      const goalPlain = goal.get({ plain: true });
+      goalPlain.progress = progress; // Assign the calculated progress
+      goalPlain.completed = progress === 100 ? true : false;
+      return goalPlain;
+    })
+  );
+
   //Habitual
   let habitualGoals = await HabitualGoal.findAll({
     include: [
@@ -56,13 +123,15 @@ router.get('/dashboard-goals', withAuth, async (req, res) => {
     },
   });
 
-  habitualGoals = await Promise.all(habitualGoals.map(async (goal) => {
-    const progress = await goal.goalProgress(); 
-    const goalPlain = goal.get({ plain: true }); 
-    goalPlain.progress = progress; // Assign the calculated progress
-    goalPlain.completed = progress === 100 ? true : false;
-    return goalPlain; // Return the modified plain object
-  }));
+  habitualGoals = await Promise.all(
+    habitualGoals.map(async (goal) => {
+      const progress = await goal.goalProgress();
+      const goalPlain = goal.get({ plain: true });
+      goalPlain.progress = progress; // Assign the calculated progress
+      goalPlain.completed = progress === 100 ? true : false;
+      return goalPlain; // Return the modified plain object
+    })
+  );
 
   const goals = [...actionableGoals, ...habitualGoals];
 
@@ -81,14 +150,6 @@ router.get('/login', async (req, res) => {
   res.render('login');
 });
 
-router.get('/signup', async (req, res) => {
-  if (req.session.logged_in) {
-    res.redirect('/dashboard-goals');
-    return;
-  }
-  res.render('signup');
-});
-
 router.get('/goals/new', withAuth, async (req, res) => {
   res.render('new-goal', {
     layout: 'alternative',
@@ -96,25 +157,24 @@ router.get('/goals/new', withAuth, async (req, res) => {
 });
 
 router.get('/signup', (req, res) => {
-    // If the user is already logged in, redirect the request to dashboard-goals
-    if (req.session.logged_in) {
-      res.redirect('/dashboard-goals');
-      return;
-    }
-  
-    res.render('signup');
-  });
+  // If the user is already logged in, redirect the request to dashboard-goals
+  if (req.session.logged_in) {
+    res.redirect('/dashboard-goals');
+    return;
+  }
+  res.render('signup');
+});
 
-  router.get('/goals/help', withAuth, async (req, res) => {
-    res.render('help', {
-      layout: 'alternative',
-    });
+router.get('/goals/help', withAuth, async (req, res) => {
+  res.render('help', {
+    layout: 'alternative',
   });
+});
 
-    router.get('/goals/privacy', withAuth, async (req, res) => {
-      res.render('privacy', {
-        layout: 'alternative',
-      });
-    });
+router.get('/goals/privacy', withAuth, async (req, res) => {
+  res.render('privacy', {
+    layout: 'alternative',
+  });
+});
 
 module.exports = router;
