@@ -2,6 +2,10 @@ const router = require('express').Router();
 const { ActionableGoal, ActionableGoalEntry } = require('../../models');
 var validator = require('validator');
 
+// Import withAuth to check if user already logged in
+const withAuth = require('../../utils/auth');
+
+//Ben PUT
 router.put('/:id', async (req, res) => {
   const { quantity, notes } = req.body;
 
@@ -70,34 +74,40 @@ router.post('/', async (req, res) => {
   }
 });
 
-router.delete('/:id', async (req, res) => {
-  if (isNaN(parseInt(req.params.id))) {
-    return res.status(400).json({ message: 'ID not an INTEGER' });
-  }
+router.delete('/:id', withAuth, async (req, res) => {
 
-  try {
-    const entry = await ActionableGoalEntry.findByPk(req.params.id, {
-      include: [
-        {
-          model: ActionableGoal,
-          attributes: [],
-          where: { user_id: req.session.user_id },
-        },
-      ],
-    });
-
-    if (!entry) {
-      return res
-        .status(404)
-        .send('You do not have an Actionable Goal Entry with this ID');
+    // Check ID is an INTEGER
+    if ( !validator.isNumeric(req.params.id) ) {
+        return res.status(400).json({ message: "ID not an INTEGER"});
     }
 
-    await ActionableGoalEntry.destroy({ where: { id: req.params.id } });
+    try {
+                
+        //Checking if there is an entry that belongs to this user
+        const entry = await ActionableGoalEntry.findByPk(req.params.id, {
+            include: [{
+              model: ActionableGoal,
+              attributes: [],
+              where: { user_id: req.session.user_id }
+            }]
+          });
 
-    res.status(200).send('Successfully Deleted');
-  } catch (error) {
-    res.status(500).json(error);
-  }
+        if (!entry) {
+            return res.status(404).send("You do not have an Actionable Goal Entry with this ID");
+        }
+
+        await ActionableGoalEntry.destroy({
+            where: {
+                id: req.params.id
+            }
+        });
+
+  
+        res.status(200).send("Succesfully Deleted");            
+        
+    } catch (error) {
+        res.status(500).json(error);
+    };
 });
 
 module.exports = router;
