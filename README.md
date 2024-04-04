@@ -22,7 +22,7 @@ To install this application, clone this repository to your local machine and ins
 
 ## Usage
 
-To view a live demonstration of this application, please visit this [link](https://github.com/mattkellyirl/).
+To view a live demonstration of this application, please visit this [link](https://project2-goalgetter-a3459e55b2ee.herokuapp.com/).
 
 ## Screenshots of Application Walkthrough
 The following image shows the web application's appearance and functionality:
