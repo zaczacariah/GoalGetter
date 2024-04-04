@@ -64,11 +64,11 @@ Please feel free to contact the development team via our GitHub or email links b
 
 Ben Taylor:  
 GitHub: [github](https://github.com/zaczacariah)  
-Email: email@gmail.com
+Email: ben-zac@outlook.com
 
 Dinh Nguyen:  
 GitHub: [github](https://github.com/DinhN17)  
-Email: email@gmail.com
+Email: nquydinh@gmail.com
 
 Badrul Borhanudin:  
 GitHub: [github](https://github.com/BadrulBorhanudin)  
